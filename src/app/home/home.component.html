@@ -1,0 +1,184 @@
+
+
+
+<div style="width: 100%;border: solid 1px #e1e1e2; height: 60px;background-color: #e1e1e2;">
+  <h1 style="color: #0070c9;font-family: 'Ranchers';font-size: 30px;text-align: center;margin-top: 7px;">Technologies News</h1>
+</div>
+
+
+<div style="width: 100%;border: solid 1px black; height: 500px;">
+<!--Carousel Wrapper-->
+<div id="carousel-example-2" class="carousel slide carousel-fade z-depth-1-half" data-ride="carousel">
+    <!--Indicators-->
+    <ol class="carousel-indicators">
+      <li data-target="#carousel-example-2" data-slide-to="0" class="active"></li>
+      <li data-target="#carousel-example-2" data-slide-to="1"></li>
+      <li data-target="#carousel-example-2" data-slide-to="2"></li>
+    </ol>
+    <!--/.Indicators-->
+    <!--Slides-->
+    <div class="carousel-inner" role="listbox">
+      <div class="carousel-item active">
+      
+        <div class="view" style="background-color: black;" >
+          <img class="d-block w-50" style="height: 500px;" src="https://www.amd.com/system/files/styles/992px/private/2020-07/538003-navi-rx-5300--front-tilt-angle-1260x709.png?itok=nO6DbxkO" alt="First slide">
+          <div class="mask rgba-black-light"></div>
+        </div>
+        <div class="carousel-caption">
+          <h3 class="h3-responsive">New Graphics Cards By AMD</h3>
+          <p>AMD</p>
+         
+          
+        </div>
+        <!-- <div style="position: relative;left: 950px;border: 1px solid white;width: 300px ;height: 300px;top:-400px;color: white;">
+            <h1>asdasdasdasdasdasdasdasdasdasddasd</h1>
+          <p>asdasdasdasdasdasdasdasdasdasddasd</p>
+          <p>asdasdasdasdasdasdasdasdasdasddasd</p>
+          </div> -->
+      </div>
+      <div class="carousel-item">
+        <!--Mask color-->
+        <div class="view" style="background-color: black;">
+          <img class="d-block w-45" style="height: 500px;background-color: black;" src="https://cdn.wccftech.com/wp-content/uploads/2020/09/NVIDIA-GeForce-RTX-3080-Graphics-Card.jpg" alt="Second slide">
+          <div class="mask rgba-black-light"></div>
+        </div>
+        <div class="carousel-caption">
+          <h3 class="h3-responsive">New Graphics Cards By Nvidia</h3>
+          <p>Nvidia</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <!--Mask color-->
+        <div class="view" style="background-color: black;">
+          <img class="d-block w-50" style="height: 500px;" src="https://c4.wallpaperflare.com/wallpaper/513/981/226/intel-logo-brand-wallpaper-preview.jpg" alt="Third slide">
+          <div class="mask rgba-black-light"></div>
+        </div>
+        <div class="carousel-caption">
+          <h3 class="h3-responsive">New Generation Processors By Intel </h3>
+          <p>Intel</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <!--Mask color-->
+        <div class="view" style="background-color: black;">
+          <img class="d-block w-50" style="height: 500px;" src="https://i.pinimg.com/originals/06/6b/63/066b63d0e14de4fba52f683963f3e50b.jpg" alt="Third slide">
+          <div class="mask rgba-black-light"></div>
+        </div>
+        <div class="carousel-caption">
+          <h3 class="h3-responsive">New Generation Processors By AMD</h3>
+          <p>AMD</p>
+        </div>
+      </div>
+    </div>
+    <!--/.Slides-->
+    <!--Controls-->
+    <a class="carousel-control-prev" href="#carousel-example-2" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carousel-example-2" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+    <!--/.Controls-->
+  </div>
+  <!--/.Carousel Wrapper-->
+
+
+
+
+</div>
+
+
+<div *ngFor="let item of arrCpus" style="background-color: #e1e1e2;width: 100%;height: 520px;width: 100%;display:flex; " class="container-fluid" >
+  <div style="width: 100%;"  class="row">
+    <div class="col-3">
+      <div class="row">
+        <div class="col-1">
+          
+        </div>
+        <div class="col-11">
+          <div class="row">
+            <div id="image"  class="col-12" style="border: 1px solid black;height: 450px;margin-top: 35px;width: 100%;content:url({{item.imgPath}});
+            ">
+            <!-- {{item.name}} -->
+            </div>
+
+          </div>
+
+
+        </div>
+    </div>  
+    </div>
+    <!-- <div class="col-6">
+      <div class="row">
+        <div class="col-1"></div>
+        <div class="col-11">
+          <div class="row">
+            <div  class="col-12" style="border: 1px solid black;height: 450px;margin-top: 35px;width: 100%;">
+              {{item.name}}</div>
+              <p>{{item.description}}
+
+              </p>
+          </div>
+
+
+        </div>
+    </div>  
+
+    </div> -->
+   <!-- <div class="col-5" style="border: 1px solid black;height: 450px;margin-top: 35px;width: 100%;"></div> -->
+  </div>
+
+</div>
+
+
+<div *ngFor="let item of  arrGpus" style="background-color: #e1e1e2;width: 100%;height: 800px;width: 100%; " class="container-fluid" >
+  <div style="width: 100%;"  class="row">
+    <div class="col-6">
+      <div class="row">
+        <div class="col-1">
+          
+        </div>
+        <div class="col-11">
+          <div  class="row">
+            <div  class="col-12" style="border: 1px solid black;height: 150px;width: 100%;">
+            <h1>  {{item.name}}</h1>
+            <p>{{item.description}}
+
+            </p>
+            <div style="width: 200px;height: 45px;border: solid 1px black;"></div>
+
+            </div>
+
+          </div>
+
+
+        </div>
+    </div>  
+    </div>
+    <div class="col-6">
+      <div class="row">
+        <div class="col-1"></div>
+        <div class="col-11">
+          <div class="row">
+            <div  class="col-12" style="border: 1px solid black;height: 150px;width: 100%;">  <h1>  {{item.name}}
+            </h1>
+          <p>Upgrade to the world’s most advanced processor1 with the most modern security.2
+          </p>
+            <div style="width: 200px;height: 45px;border: solid 1px black;"></div>
+
+          
+          </div>
+          
+          </div>
+
+
+        </div>
+    </div>  
+
+    </div>
+   <!-- <div class="col-5" style="border: 1px solid black;height: 450px;margin-top: 35px;width: 100%;"></div> -->
+  </div>
+
+</div>

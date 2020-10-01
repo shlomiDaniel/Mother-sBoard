@@ -1,0 +1,53 @@
+
+<mat-card>
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <form (submit)="onLogin(loginForm)" *ngIf="!isLoading" #loginForm="ngForm"  >
+  
+  
+      <mat-form-field  ><br>
+        <input placeholder="Enter email:" name="email" ngModel matInput type="email" #emailInput="ngModel"  required email  />
+        <mat-error style="color: blueviolet" *ngIf="emailInput.invalid">Please Enter a valid email</mat-error>
+      </mat-form-field><br>
+ 
+      <mat-form-field  ><br>
+        <input name="password" ngModel placeholder="Enter password:" matInput type="password" required #passwordInput="ngModel"  />
+        <mat-error style="color: blueviolet" *ngIf="passwordInput.invalid" >Please Enter a valid password</mat-error>
+      </mat-form-field><br>
+  
+    <button mat-raised-button
+            color="primary" style="margin-left: 350px;"
+            type="submit" *ngIf="!isLoading" >Sign in</button>
+  
+            <mat-spinner *ngIf="isLoading"></mat-spinner>
+
+            <button mat-raised-button
+            color="primary" style="margin-left: 25px;"
+            type="submit" *ngIf="!isLoading" (click)="googlelogin()" >Sign in with Google </button>
+  
+            <mat-spinner *ngIf="isLoading"></mat-spinner>
+
+            <button mat-raised-button
+            color="primary" style="margin-left: 25px;"
+            type="submit" *ngIf="!isLoading" (click)="facebookLogIn()" >Sign in with Facebook</button>
+  
+            <mat-spinner *ngIf="isLoading"></mat-spinner>
+
+           
+            
+            <!-- <div *ngIf="check()" class="alert alert-danger">
+              <strong>Danger!</strong> Indicates a dangerous or potentially negative action.
+            </div> -->
+
+            <div>
+              <h3 style="color: blue;"><a href="/forgot">Forgot Password?</a></h3>
+            </div>
+           
+
+            <div #script="" style.display="none">
+              <ng-content></ng-content>
+          </div>
+  </form>
+  
+  </mat-card>
+  
+ 
