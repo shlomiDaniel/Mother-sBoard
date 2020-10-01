@@ -7,10 +7,10 @@
             <div class="col-4">
     
                 
-                <div style="border: solid 1px #ced4da;margin-top: 25px;width: 95%;margin-left: 15px;border-radius: 5px;height: 270px;">
-                   
-                  <h3>First Name :{{firstName}}   <a href="/address"><i style="float: right;color: black;" class="fas fa-edit fa-2x"></i></a></h3>
-                    <h3>Last Name:{{lastName}}<i style="float: right;margin-right: 8px;" class="fas fa-calendar-times fa-2x"></i>
+                <div style="border: solid 1px #ced4da;margin-top:50px;width: 95%;margin-left: 15px;border-radius: 5px;height: 330px;">
+                   <h1 style="color: #455570;text-decoration: underline;">Billing Address:</h1>
+                  <h3>First Name :{{firstName}}   <a href="/address"><i style="float: right;color: black;margin-top: -50px;" class="fas fa-edit fa-2x"></i></a></h3>
+                    <h3>Last Name:{{lastName}}<i style="float: right;margin-right: 8px;margin-top: -50px;" class="fas fa-calendar-times fa-2x"></i>
 
                     </h3>
                     <h3>City:{{city}}</h3>
@@ -38,61 +38,67 @@
                     <div style="border: solid 1px black;height: 50px;background-color: #455570;color: white;"class="col-3"><h1 class="itemMenu" style="margin-top: 7px;">Payment</h1></div>
                     <div style="border: solid 1px black;height: 50px;background-color: #f3f3f3;" class="col-5"><h1 class="itemMenu" style="margin-top: 7px;">Confirmation</h1></div>
                      <br>
-                     <h1 style="margin-top: 10px;">Add Address User:</h1>
+                     <h1 style="margin-top: 10px;">Payment Details:</h1>
                 </div>
                 <div  class="row">
                     <div class="col-8" style="height: 600px;width: 100%;;border: 1px solid black;background-color: #ebf3fd;">
                         
-                    <h4>First Name:</h4>
-    
-    
-                    
-                    <input name="firstName" type="text" class="form-control"  formControlName="firstName" placeholder="Enter First Name" value={{firstName}}>
-    
-                    <h4>Last Name:</h4>
-                    <input name="lastName" type="text" class="form-control"  formControlName="lastName" placeholder="Enter Last Name" value={{lastName}}>
-                    <h4>Country:</h4>
-                    <mat-select style="background-color: white;height: 35px;border-radius: 5px;border:  1px solid #ced4da;"  placeholder="Pick a Country" formControlName="country"  (selectionChange)="changeClient($event.value)"  >
-        
-                        <mat-option  *ngFor="let country of arrTemp"  value={{country}} >{{country}}</mat-option>
-                       
-                        <br>
+
+                        <div *ngIf="!paidFor">
+                            <h2>Cart Details:</h2>
+                            <div class="row">
+                                <div class="col-6"> <h2>Item Name:</h2></div>
+                                <div class="col-3">  <h2 style="margin-left: -20px;">Price:</h2></div>
+                                <div class="col-3">   <h2 style="margin-left: -20px;">Amount:</h2></div>
+                            </div>
+                            <div   class="row" *ngFor="let item of arrName; let i = index" [attr.data-index]="i">
+                              
+                                <div  class="col-6" >
+                                   
+                                    <h3 > {{(i+1)}}. {{item.name}}</h3></div>
+                                <div class="col-3" >
+                                  
+                                    <h3 >{{item.price}}$</h3></div>
+                                <div class="col-3" > 
+                                    <h3 >X{{item.amount.number}}</h3></div>
+                            </div>
                         
-                      </mat-select>
-                    
-                     <br>
-                     
-                      <mat-select style="margin-top: 20px;background-color: white;height: 35px;border:  1px solid #ced4da;border-radius: 5px;" placeholder="Pick a city" formControlName="city"   >
-                        <br>
-                        <mat-option  *ngFor="let city of arrCity" (click)="cityChecked()" value={{city}} >{{city}}</mat-option>
-                       
-                      </mat-select>
-                      
-                    <h4 style="margin-top: 10px;">Full Address:</h4>
-                    <!-- <input type="text" class="form-control" formControlName="address" placeholder="Enter Full Address"  > -->
-                    
-                    <div fxFlex fxFlexAlign="center"
-                    class="autocomplete-container" style="background-color: white;height: 80px;border:  1px solid #ced4da;border-radius: 5px;"
-                   >
-                                  <!-- <input type="text" class="form-control" formControlName="address" placeholder="Enter Full Address"  > -->
+                         <!-- <h3 style="position: absolute;top: 0;right: 200px;" *ngFor="let price of prices">{{price}}</h3> -->
+                         <!-- <h3 *ngFor="let amount of amount">{{amount.number}}</h3> -->
+
+
+                        </div>
+
+                        <div *ngIf="paidFor">
+                        
+                        <h1>Payment Complete</h1>
+
+                        </div>
+
+
+                   
+                        <div style="margin-top: 20px;" #paypal></div>
     
-                 <!-- <mat-google-maps-autocomplete 
+    
+                    
+    
+                        
+                       
+                        
+                    
+                     
+                      
+                 
+                    
+                  
+    
                  
                  
-                 (onAutocompleteSelected)="onAutocompleteSelected($event)"
-                                               (onLocationSelected)="onLocationSelected($event)"
-                                               (onGermanAddressMapped)="onGermanAddressMapped($event)">
-                 </mat-google-maps-autocomplete> -->
-               </div>
     
                
               
     
-                    <!-- <h4>Postal Code:</h4> -->
-                    <!-- <input type="text" class="form-control" name="zipCode" formControlName="zipCode"  placeholder="Enter Postal Code" value="{{zipCode}}" /> -->
                     
-                    <h4>Phone Number:</h4>
-                    <input  type="text" class="form-control"  formControlName="phoneNumber" placeholder="Enter Phone Number" >
                     </div>
                     <div class="col-4">
                        <div style="background-color: #e5e9ec;height: 300px;width: 100%;">

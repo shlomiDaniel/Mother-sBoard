@@ -1,4 +1,4 @@
-import { Component, ElementRef, NgZone, OnInit, ViewChild,ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, NgZone, OnInit, ViewChild,ViewEncapsulation } from '@angular/core';
 import { AuthData } from '../../auth/auth-data.model';
 // import {HttpClient} from '@angular/common/http';
 import {Subject} from 'rxjs';
@@ -11,7 +11,7 @@ import { MapsAPILoader } from '@agm/core';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
-
+import { tap } from 'rxjs/operators';
 
 import axios from 'axios';
 import {Title} from '@angular/platform-browser';
@@ -20,13 +20,24 @@ import {Location, Appearance, GermanAddress,MatGoogleMapsAutocompleteModule} fro
 import PlaceResult = google.maps.places.PlaceResult;
 import { HttpClient } from '@angular/common/http';
 import { TimeInterval } from 'rxjs';
+import { async } from 'rxjs/internal/scheduler/async';
+
+
+interface Window {
+  paypal: any;
+}
+
+declare var window: Window;
+
+
 
 @Component({
   selector: 'app-user-payment',
   templateUrl: './user-payment.component.html',
   styleUrls: ['./user-payment.component.css']
 })
-export class UserPaymentComponent implements OnInit {
+export class UserPaymentComponent implements OnInit,AfterViewInit {
+  // @ViewChild('paypal', { static: true }) paypalElement: ElementRef;
 
   user: AuthData;
   // city = "";
@@ -36,22 +47,172 @@ export class UserPaymentComponent implements OnInit {
   vat = 0;
   // currentCountry = "";
   form :FormGroup;
+ 
+   arrName = [];
+   prices =[];
+   amount = [];
   arrTemp = [];
   arrCity = [];
   price = 0;
+  paidFor = false;
   fullAddress = "";
   public city: string; 
 	public country: string;
   totalPrice =0;
   firstName="";
+  arrDis= [];
+  data = [];
   constructor(public authService: AuthService,private router : Router,public route :ActivatedRoute,
     private mapsAPILoader: MapsAPILoader, private ngZone: NgZone,private titleService: Title,public http:HttpClient) { 
 // this.getAllCountries();
 // this.cityChecked();
 }
 
+calculateTotalPrice(){
 
+  this.authService.getUserByEmail(localStorage.getItem("email")).subscribe(data=>{
+   
+    this.totalPrice=0;
+    this.price = 0;          
+     console.log( this.user);
+
+   for(let i =0;i<data.user.Cart.products.length;i++){
+       this.totalPrice += parseFloat (data.user.Cart.products[i].price);
+       this.price +=parseFloat (data.user.Cart.products[i].price);
+   }
+   this.vat = this.totalPrice*0.16;
+   this.totalPrice+=this.vat;
+          // this._id=data.user._id;
+  })
+       return this.totalPrice;
+
+}
+  ngAfterViewInit(): void {
+    // let product = {};
+    console.log("7777777");
+    console.log(this.totalPrice);
+    window.paypal
+    .Buttons({
+      createOrder: (data, actions) => {
+        return actions.order.create({
+         
+          purchase_units: [
+{
+            amount:{
+              value:this.calculateTotalPrice(),
+              currency_code:'USD'
+            }
+}
+
+          ]
+            
+          //   {
+          //     name:"product",
+          //   price:"50",
+          //   amount:"3",
+          //   // description:this.data[1],
+          //   // price:this.data[2],
+          //   // amount:this.data[3]._id,
+          //   currency_code:'USD'
+          //   }
+          // ]
+        });
+      },
+     onApprove:(data,actions)=>{
+      return actions.order.capture().then(details=>{
+        alert("Transaction completed");
+      })
+     },
+     onError:err=>{
+       console.log(err);
+     }
+    })
+    .render(this.paypalRef.nativeElement);
+  }
+ // paypal: any;
+getAllProductsDis(){
+  this.authService.getUserByEmail(localStorage.getItem("email")).subscribe(data=>{
+  
+    for(let i=0;i<data.user.Cart.products.length;i++){
+      if(data.user.Cart.products[i]!==undefined&&data.user.Cart.amount[i]!==undefined){
+        let item = {name:data.user.Cart.products[i].name,price:data.user.Cart.products[i].price,amount:data.user.Cart.amount[i]}
+        this.arrName.push(item);
+        // this.arrName.push();
+        // this.prices.push();
+        // this.amount.push();
+  
+  
+      }
+    }
+
+
+      
+  })
+
+
+
+
+
+ 
+  return this.arrName;
+}
+
+  @ViewChild('paypal',{static:false}) private paypalRef:ElementRef;
+  
+  // ngAfterViewInit(){
+
+  // }
   ngOnInit(): void {
+      console.log("####");
+      console.log(window.paypal);
+
+      // (window as any).paypalRef.Buttons({
+      //   style:{
+      //     layout:"horizontal"
+      //   }
+      // }
+      // ).render(this.paypalRef.nativeElement);
+
+    // console.log((window as any).paypal);
+    // console.log("####");
+    // this.data = this.getAllProductsDis();
+    // console.log(this.data);
+    // console.log((window as any).paypal);
+   
+
+
+
+    // paypal.Buttons({
+    //  createOrder:(data,actions)=>{
+    //   return actions.order.create({
+    //     purchase_units :[
+    //       {
+    //         name:this.data[0].name,
+    //         price:this.data[0].price,
+    //         amount:this.data[0].amount.number,
+    //         // description:this.data[1],
+    //         // price:this.data[2],
+    //         // amount:this.data[3]._id,
+    //         currency_code:'USD'
+    //       }
+  
+    //      ]
+        
+    //   }); 
+      
+       
+    //  },
+    //  onApprove:async(data,actions)=>{
+    //    const order = await actions.order.capture();
+    //    this.paidFor = true;
+    //    console.log(order);
+    //  },
+    //  onError:err=>{
+    //    console.log(err);
+    //  }
+    // })
+    // .render(this.paypalElement.nativeElement);
+    this.arrName = this.getAllProductsDis();
     console.log( this.user);
 
     this.form = new FormGroup({
