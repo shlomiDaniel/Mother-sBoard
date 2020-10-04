@@ -121,6 +121,8 @@ calculateTotalPrice(){
      onApprove:(data,actions)=>{
       return actions.order.capture().then(details=>{
         alert("Transaction completed");
+        this.paidFor = true;
+        location.href= '/confirmation'
       })
      },
      onError:err=>{
@@ -332,5 +334,46 @@ getAllProductsDis(){
    })
    console.log( this.arrCity);
    }
+
+   confirmation(){
+    let email = localStorage.getItem("email");
+    alert("Transaction completed");
+    alert(email);
+
+    this.paidFor = true;
+    // location.href= '/confirmation';
+
+
+    this.authService.getUserByEmail(email).subscribe(data=>{
+
+    let order = {userId:data.user._id,products:data.user.Cart.products,
+      amount:data.user.Cart.amount,status:data.user.Cart.status,address:data.user.address}
+
+      this.http.post("http://localhost:4500/orders/addOrder",order).subscribe(data=>{
+               console.log(data);
+      })
+                console.log(order);
+    })
+
+
+      // this.http.get("http://localhost:4500/orders").subscribe(data=>{
+      //   console.log(data);
+      // })
+    // })
+    
+  
+  //   // /addOrder/:_id/:products/:amount/:address/:status
+    
+  //   alert("Transaction completed");
+  //   this.paidFor = true;
+  //   location.href= '/confirmation'
+   }
+
+    
+
+    
+
+
+   
 
 }

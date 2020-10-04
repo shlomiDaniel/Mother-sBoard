@@ -15,5 +15,5 @@ export interface AuthData{
     address:Address,
     isActive:boolean,
     Cart : UserCartSchema,
-    orderHistory: [ {type:string, ref:"Cart"} ] 
+    orderHistory: [] 
 }

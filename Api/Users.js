@@ -2,9 +2,11 @@
 const passportSetup = require('./config/passport-setup');
 const cookieSession = require('cookie-session');
 const express = require('express');
+// var ObjectId = require('mongodb').ObjectID;
+
 // const mongoose = require('mongoose');
 // const db = mongoose.db
-
+const mongoose = require('mongoose');
 const User = require('../Models/User');
 const router = express.Router();
 const bcrypt = require('bcrypt'); 
@@ -742,6 +744,63 @@ router.post('/contact-us', (req,res)=>{
    })
 // User.findOneAndUpdate({})
   
-    
 
+   router.get("/saveCartToOrderHistory/info/:email",(req,res)=>{
+   
+
+    User.findOne({email:req.params.email}).then(data=>{
+
+      var order = {oderId:data.Cart._id, billingAddress:data.address,cart:data.Cart };
+      order.cart.status = "Paid";
+      data.orderHistory.push(order);
+      data.save();
+     res.json({user:data})
+      //  let products = [];
+      //  let amount=[];
+      //  let status = "Active";
+
+      //  User.findOneAndUpdate({email:req.params.email},{$set:{"Cart.products":products,
+      //  "Cart.amount":amount,"Cart.status":status}}).then(data2=>{
+      //    data.save();
+      //    res.json({user:data2})
+            
+         
+      //   });
+
+      //data.remove("Cart");
+     // User.update({email:req.params.email}, {$unset: {"Cart":1}}, false, true);
+
+   })
+   
+  //  User.update( { email : req.params.email },{ $push: { "achieve": 95 } });
+
+
+    })
+      
+    
+    router.get("/cleanCart/:email",(req,res)=>{
+   
+      let id = mongoose.Types.ObjectId();
+     // {$set:{"Cart.status":"Active","Cart._id":id}
+      User.update({email:req.params.email}, {$unset: {"Cart.products":1,"Cart.amount":1}},{multi: true}).then(user=>{
+        res.json({user:user})
+
+        User.findOneAndUpdate({email:req.params.email},{$set:
+          {"Cart.status":"Active","Cart._id":id}
+      
+          
+       }).then(data=>{
+        res.json({user:data})
+       });
+
+      // 5f79c8ccbebe0732244c8966
+
+        // User.update({email:req.params.email}, {$set: {"Cart.status":"Active","_id.":id}},{multi: true}).then(u=>{
+        //   res.json({u:u})
+        // });
+      });
+
+      
+
+      })
     module.exports = router;

@@ -42,7 +42,7 @@ const userSchema = new Schema({
             status:"Active"
         }
     },
-    orderHistory: [ {type:Schema.Types.ObjectId, ref:"Cart"} ] 
+    orderHistory: [  ] 
     
   
    

@@ -58,6 +58,7 @@ import { CartComponent } from './cart/cart/cart.component';
 import { UserDetailsExpandComponent } from './users/user-details-expand/user-details-expand.component';
 import { AgmCoreModule } from '@agm/core';
 import { UserPaymentComponent } from './users/user-payment/user-payment.component';
+import { ConfirmationComponent } from './users/confirmation/confirmation.component';
 
 const config = {
   apiKey: '<your-key>',
@@ -93,7 +94,8 @@ const config = {
     ItemFullPageComponent,
     CartComponent,
     UserDetailsExpandComponent,
-    UserPaymentComponent
+    UserPaymentComponent,
+    ConfirmationComponent
   ],
   entryComponents:[DialogMessageComponent],
   imports: [
@@ -145,7 +147,9 @@ const config = {
        {path: 'item/:_id', component: ItemFullPageComponent},
        {path: 'cart', component: CartComponent},
        {path:'address',component:UserDetailsExpandComponent},
-       {path:'payment',component:UserPaymentComponent}
+       {path:'payment',component:UserPaymentComponent},    
+        {path:'confirmation',component:ConfirmationComponent}
+
        
        
       

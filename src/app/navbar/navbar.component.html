@@ -75,16 +75,39 @@
                           <a  style="color: orange;" *ngIf="!checkLoggingIn()"  class="nav-link" href="/signup">Sign up</a>
                         </li>
                         
-                        <li style="float: right;"  class="nav-item">
-                          <i *ngIf="checkLoggingIn()" style="color: aliceblue;display: inline;" class="far fa-user fa-2x"></i>
+                        <li (mouseover)="changeText3=true" (mouseleave)="changeText3=false"  style="float: right;" id="userNameHover"  class="nav-item">
+
+                          <i   *ngIf="checkLoggingIn()" style="color: aliceblue;display: inline;" class="far fa-user fa-2x"></i>
                           <a *ngIf="checkLoggingIn()" href="/profile/{{_id}}"  style="color: aliceblue;display: inline;" > Welcome :{{userName}}</a>
                          
+                            
+                           <div *ngIf="changeText3"  style="height: 190px; width: 450px;background-color: #F0F8FF;position:fixed;z-index:5;top: 50px;left: 1100px;;border: orange 1px solid; " >
+                            
+                          <div  id="hover"   class="row" style="width: 250px;"  >
+                           <div   style="color: black;"  class="col-12"> <h2 style="font-weight: bolder;">Order History</h2>
+                            <div style="color: black;border-bottom: black 1px solid;width: 250px;"></div>
+                    
+                             
+                            </div>
+                          </div>
+                          <div id="hover" class="row" style="width: 250px;"  >
+                            <div  style="color: black;" class="col-12"> <h2 style="font-weight: bolder">User Profile</h2>
+                              <div style="color: black;border-bottom: black 1px solid;width: 250px;"></div>
+                            </div>
+                          </div>
+                        
+                          
+                          </div>
+                           
+
+
+
                           <!-- <button  (click)="logout()"  mat-button>LogOut</button> -->
                           <!-- <button (click)="login()"  >Log In</button> 
                           <button (click)="logout()"  >Log Out</button> -->
                           
                         </li>
-                        <li style="color:white;margin-top: 3px;"  class="nav-item">
+                        <li style="color:white;margin-top: 3px;margin-left: 35px;"  class="nav-item">
                           <button *ngIf="checkLoggingIn()" (click)="onLogOut()"  mat-button>LogOut</button>
                           <div  *ngIf="checkLoggingIn()" style="margin-top: 5px;float: right ;background-image: url({{imagePath}});">
                             <a style="color: white;" href="/profile/{{_id}}">
@@ -141,7 +164,7 @@
     <img  style="height: 50px;width: 50px;border-radius: 65px;"  src="https://previews.123rf.com/images/putracetol/putracetol1805/putracetol180502182/101179920-science-computer-logo-icon-design.jpg" alt="logo">
   </a> 
   </a>
-  <a class="navbar-brand" href="#">Computer Store </a>
+  <a id="menuNav" style="font-size:xx-large;color: white; " class="navbar-brand"  href="#">Mother'sBoard </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -157,7 +180,7 @@
         <a class="nav-link" href="/home">HOME <span class="sr-only">(current)</span></a>
       </li> -->
       <li  (mouseover)="changeText=true" (mouseleave)="changeText=false" class="nav-item">
-        <a class="nav-link"  href="/items/gpu" style="font-size:larger;color: white; "  >GRAPHICS
+        <a id="menuNav" class="nav-link"  href="/items/gpu" style="font-size:larger;color: white;margin-left: 60px; "  >GRAPHICS
           <i class="fas fa-caret-down" style="color: white;" ></i>
         </a>
        <div *ngIf="changeText"  style="height: 400px; width: 250px;background-color: #F0F8FF;position:fixed;z-index:5;top: auto;border: orange 1px solid; " >
@@ -209,7 +232,7 @@
        
       </li>
       <li (mouseover)="changeText2=true" (mouseleave)="changeText2=false" class="nav-item">
-        <a class="nav-link" href="/items/cpu" style="font-size:larger;color: white; ">CPUS
+        <a id="menuNav" class="nav-link" href="/items/cpu" style="font-size:larger;color: white; ">CPUS
           <i class="fas fa-caret-down" style="color: white;" ></i></a>
 
           <div *ngIf="changeText2"  style="height: 400px; width: 250px;background-color: #F0F8FF;position:fixed;z-index:5;top: auto;border: orange 1px solid; " >
@@ -251,21 +274,21 @@
       </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/products" style="font-size:larger;color: white; ">PRODUCTS
+        <a id="menuNav" class="nav-link" href="/products" style="font-size:larger;color: white; ">PRODUCTS
           <i class="fas fa-caret-down" style="color: white;" ></i></a>
       </li>
       <li class="nav-item">
-        <a *ngIf="checkLoggingIn()" class="nav-link" href="/users" style="font-size:larger;color: white; ">USERS
+        <a id="menuNav" *ngIf="checkLoggingIn()" class="nav-link" href="/users" style="font-size:larger;color: white; ">USERS
           <i class="fas fa-caret-down" style="color: white;" ></i></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/search" style="font-size:larger;color: white; ">SEARCH</a>
+        <a  id="menuNav" class="nav-link" href="/search" style="font-size:larger;color: white; ">SEARCH</a>
       </li>
       <li class="nav-item">
-        <a *ngIf="checkLoggingIn()" class="nav-link" href="/create" style="font-size:larger;color: white; ">CREATE</a>
+        <a  id="menuNav" *ngIf="checkLoggingIn()" class="nav-link" href="/create" style="font-size:larger;color: white; ">CREATE</a>
       </li>
       <li class="nav-item dropdown">
-        <a *ngIf="checkLoggingIn()" class="nav-link dropdown-toggle" style="font-size:larger;color: white;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a id="menuNav" *ngIf="checkLoggingIn()" class="nav-link dropdown-toggle" style="font-size:larger;color: white;" href="#"  role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           ADMIN ONLY
         </a>
         
@@ -285,10 +308,24 @@
         
       </li>
       <li class="nav-item">
-        <!-- <a class="nav-link disabled" href="#">Disabled</a> -->
+
+        
+        <a   style="color: aliceblue;margin-left: 175px;font-size: medium;" href="#">Location:{{city}}/{{country}}</a>
       </li>
-      <li  class="nav-item">
-        <!-- <a *ngIf="!checkLoggingIn()"  class="nav-link" href="/login">Login</a> -->
+
+      <li class="nav-item">
+        <!-- <a class="nav-link disabled" href="#">Disabled</a> -->
+        <a   style="color: aliceblue;margin-left: 35px;font-size: medium;margin-top: 200px;" href="#">
+          Temperature:{{currentTemp}}°
+        <!-- <img src="http://openweathermap.org/img/wn/01d@2x.png" style="height: 35px;width: 40px;"> -->
+        </a>
+                <img src="http://openweathermap.org/img/wn/01d@2x.png" style="height: 30px;width: 30px;margin-top: -5px;">
+
+      </li>
+
+
+      <li style="margin-left: 33px;"  class="nav-item">
+       Current Time: 22:23
       </li>
       <li  class="nav-item">
         <!-- important --------------------

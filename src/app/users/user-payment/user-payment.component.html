@@ -41,7 +41,7 @@
                      <h1 style="margin-top: 10px;">Payment Details:</h1>
                 </div>
                 <div  class="row">
-                    <div class="col-8" style="height: 600px;width: 100%;;border: 1px solid black;background-color: #ebf3fd;">
+                    <div class="col-8" style="height: 600px;width: 100%;;border: 1px solid #ced4da;background-color: #ebf3fd;">
                         
 
                         <div *ngIf="!paidFor">
@@ -80,10 +80,9 @@
                         <div style="margin-top: 20px;" #paypal></div>
     
     
-                    
+                    <button (click)="confirmation()">confirmationTest</button>
     
-                        
-                       
+                   
                         
                     
                      
@@ -101,7 +100,7 @@
                     
                     </div>
                     <div class="col-4">
-                       <div style="background-color: #e5e9ec;height: 300px;width: 100%;">
+                       <div style="background-color: #e5e9ec;height: 300px;width: 100%;border: solid 1px #ced4da">
                         <h2 style="color:black;background-color: orange;text-align: center;">Order Summery</h2>
                         <div style="height: 200px; width: 90%;background-color: white;margin-left: 11px;margin-bottom: 20px;" >
                         <h3>PRICE : {{price}}$</h3>

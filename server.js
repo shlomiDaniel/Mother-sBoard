@@ -54,6 +54,12 @@ const category = require('./Api/Category');
 app.use("/category",category);
 
 
+const order = require('./Api/Orders');
+
+app.use("/orders",order);
+
+
+
 //  app.engine('handlebars',exphbs());
 //   app.set('view engine','handlebars');
 
