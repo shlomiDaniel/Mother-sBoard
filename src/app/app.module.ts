@@ -59,6 +59,7 @@ import { UserDetailsExpandComponent } from './users/user-details-expand/user-det
 import { AgmCoreModule } from '@agm/core';
 import { UserPaymentComponent } from './users/user-payment/user-payment.component';
 import { ConfirmationComponent } from './users/confirmation/confirmation.component';
+import { UserOrderHistoryComponent } from './users/user-order-history/user-order-history.component';
 
 const config = {
   apiKey: '<your-key>',
@@ -95,7 +96,8 @@ const config = {
     CartComponent,
     UserDetailsExpandComponent,
     UserPaymentComponent,
-    ConfirmationComponent
+    ConfirmationComponent,
+    UserOrderHistoryComponent
   ],
   entryComponents:[DialogMessageComponent],
   imports: [
@@ -148,7 +150,9 @@ const config = {
        {path: 'cart', component: CartComponent},
        {path:'address',component:UserDetailsExpandComponent},
        {path:'payment',component:UserPaymentComponent},    
-        {path:'confirmation',component:ConfirmationComponent}
+        {path:'confirmation',component:ConfirmationComponent},
+        {path:'userOrderHistory/:_id',component:UserOrderHistoryComponent}
+
 
        
        

@@ -139,5 +139,10 @@ export class UserProfileComponent implements OnInit {
     // });
    
   }
+  orderHistory(){
+    let _id = localStorage.getItem("_id");
+    this.router.navigate(["/userOrderHistory/"+ _id]);
+
+  }
 
 }
