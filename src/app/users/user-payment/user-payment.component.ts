@@ -335,17 +335,15 @@ getAllProductsDis(){
    console.log( this.arrCity);
    }
 
+
+  
    confirmation(){
     let email = localStorage.getItem("email");
     alert("Transaction completed");
     alert(email);
-
     this.paidFor = true;
     // location.href= '/confirmation';
-
-
     this.authService.getUserByEmail(email).subscribe(data=>{
-
     let order = {userId:data.user._id,products:data.user.Cart.products,
       amount:data.user.Cart.amount,status:data.user.Cart.status,address:data.user.address}
 
@@ -354,7 +352,12 @@ getAllProductsDis(){
       })
                 console.log(order);
     })
+    axios.get("http://localhost:4500/user/saveCartToOrderHistory/info/" + email).then(info=>{
+      console.log(info);
+    })
 
+
+    this.router.navigate(["/confirmation"]);
 
       // this.http.get("http://localhost:4500/orders").subscribe(data=>{
       //   console.log(data);
@@ -369,11 +372,5 @@ getAllProductsDis(){
   //   location.href= '/confirmation'
    }
 
-    
-
-    
-
-
-   
 
 }
