@@ -150,7 +150,7 @@ export class UserDetailsExpandComponent implements OnInit {
   }
   changeClient(event){
     this.country = event;
-    alert(this.country);
+    // alert(this.country);
     this.setCurrentPosition();
 
     axios.get<{cities:any[]}>('http://localhost:4500/country/' +this.country).then(data=>{
@@ -214,7 +214,7 @@ export class UserDetailsExpandComponent implements OnInit {
       zipCode:new FormControl(null,{validators:[Validators.required]})
      // country:new FormControl(null,{validators:[Validators.required]})
      });
-              alert("data.user.email");
+              // alert("data.user.email");
 
        let email = localStorage.getItem("email");
         this.authService.getUserByEmail(email).subscribe(data=>{

@@ -30,15 +30,29 @@ const storage = multer.diskStorage({
   }
 });
 
+// router.get("/",(req,res)=>{
+//   Product.find().then(data=>{
+//     console.log({data:data});
+//     res.status(200).json({
+//       gpus:data.filter(data=>data.category==="gpu"),
+//       cpus:data.filter(data=>data.category==="cpu"),
+//       powerSupplys:data.filter(data=>data.category==="powerSupply"),
+//       cases:data.filter(data=>data.category==="cases"),
+//       memoryRams:data.filter(data=>data.category==="memoryRam")
+
+
+
+      
+      
+//     });
+//   });
+// });
+
 router.get("/",(req,res)=>{
   Product.find().then(data=>{
     console.log({data:data});
     res.status(200).json({
-      gpus:data.filter(data=>data.category==="gpu"),
-      cpus:data.filter(data=>data.category==="cpu"),
-      powerSupplys:data.filter(data=>data.category==="powerSupply"),
-      cases:data.filter(data=>data.category==="cases"),
-      memoryRams:data.filter(data=>data.category==="memoryRam")
+      products:data
 
 
 

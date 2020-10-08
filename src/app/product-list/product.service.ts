@@ -114,6 +114,7 @@ export  class ProductsService {
      
      
     });
+    console.log(this.products);
     return this.products;
   }
 

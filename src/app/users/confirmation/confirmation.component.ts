@@ -1,7 +1,7 @@
 import { trigger } from '@angular/animations';
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/auth/auth.service';
-import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-confirmation',
@@ -11,12 +11,14 @@ import { HttpClient } from '@angular/common/http';
 export class ConfirmationComponent implements OnInit {
 
   constructor(public authService : AuthService ,public http:HttpClient) { }
+
+  
   arrName=[];
   totalPrice =0;
   price=0;
   vat=0;
   paidFor =true;
-
+  email =localStorage.getItem("email");
   firstName = "";
   city = "";
   lastName = "";
@@ -25,6 +27,7 @@ export class ConfirmationComponent implements OnInit {
   fullAddress = "";
 
   ngOnInit(): void {
+    
     this.calculateTotalPrice();
     this.getAllProductsDis();
     this.paidFor =true;
@@ -37,10 +40,13 @@ export class ConfirmationComponent implements OnInit {
       console.log("clean cart user");
       
       })
+    this.http.get("http://localhost:4500/user/cleanCart/" + this.email).subscribe(data2=>{
+      console.log(data2);
+    })
   }
 
   getAllProductsDis(){
-    this.authService.getUserByEmail(localStorage.getItem("email")).subscribe(data=>{
+    this.authService.getUserByEmail(this.email).subscribe(data=>{
       this.firstName = data.user.firstName,
       this.lastName = data.user.lastName,
       this.phoneNumber = data.user.phoneNumber,

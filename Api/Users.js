@@ -769,11 +769,9 @@ router.post('/contact-us', (req,res)=>{
 
       //data.remove("Cart");
      // User.update({email:req.params.email}, {$unset: {"Cart":1}}, false, true);
-
    })
    
   //  User.update( { email : req.params.email },{ $push: { "achieve": 95 } });
-
 
     })
       
