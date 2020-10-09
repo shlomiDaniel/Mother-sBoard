@@ -17,12 +17,15 @@ export class NavbarComponent implements OnInit,OnDestroy {
   email= "";
   firstName="";
   userName="";
+  currentTime : Date;
+ // finalTime : Date;
   changeText2 : boolean;
   changeText: boolean;
   changeText3:boolean;
   AuthData : AuthData;
   imagePath = "";
   _idUser = "";
+   interval = 0;
    _id="";
    img ="";
    icon = "";
@@ -31,6 +34,7 @@ export class NavbarComponent implements OnInit,OnDestroy {
    temp = "";
    cuttentTime = "";
    currentTemp ;
+   finalTime : string;
   userIsAuthenticated = false;
   constructor(private authService : AuthService,public http: HttpClient,public activeRoute:ActivatedRoute) {
 
@@ -77,7 +81,10 @@ export class NavbarComponent implements OnInit,OnDestroy {
         this.currentTemp = temp;
         this.currentTemp = this.currentTemp.toFixed(0);
         console.log("temp" + temp);
-       console.log(data.data);
+       console.log(data.data.coord.lat);
+       console.log(data.data.coord.lon);
+      this.getCurrentTime(data.data.coord.lon,data.data.coord.lat);
+       
       //  this.main = data.data.weather[0].main;
       //  this.desc = data.data.weather[0].description;
        this.icon = data.data.weather[0].icon;
@@ -181,6 +188,74 @@ export class NavbarComponent implements OnInit,OnDestroy {
       this.userName = userName;
     }
     //this.authService.getUserByEmail
+  }
+
+
+  getCurrentTime(lon:string,lat:string){
+    axios.get("https://api.ipgeolocation.io/timezone?apiKey=d27c2b334159456e9512be41ed06f3c4&lat="+lat+"&long="+lon).then(time=>{
+      // let currentTime = time.data.time_24;
+       let date = time.data.date;
+       let location = time.data.timezone;
+       console.log(location);
+      // console.log(currentTime);
+       console.log(date);
+       //this.location = location;
+      // this.currentTime = currentTime;
+      // this.date = date;
+       //let dateTime = new Date(time.data.date_time);
+       //console.log(dateTime);
+       //let seconds = dateTime.getSeconds();
+      // console.log(seconds);
+       
+       // this.myDate = new Date();
+
+
+       // // let d = new Date();
+
+       // let utc = this.myDate.getTime() + (this.myDate.getTimezoneOffset() * 60000);
+   
+       // let nd = new Date(utc + (3600000*data.data.timezone));
+   
+       // console.log( "The local time in " + "city" + " is " + nd.toLocaleString());
+  
+       this.currentTime = time.data.time_24;
+       let timeNow = new Date(this.currentTime);
+
+         this.interval = setInterval(() => {         //replaced function() by ()=>
+          let time = new Date();
+          
+          this.getTime(time.getHours(),time.getMinutes(),time.getSeconds,time);
+         
+         
+         // this.finalTime = time.getHours()+":"+time.getMinutes()+":"+time.getSeconds();
+           // console.log(time.getHours()+":"+time.getMinutes()+":"+time.getSeconds()); 
+           //  console.log(time.getMinutes()+":");
+           //  console.log(time.getSeconds());
+            // just testing if it is working
+
+
+
+          }, 1000);
+        
+          
+          
+
+     })
+  }
+
+   addZero(i) {
+    if (i < 10) {
+      i = "0" + i;
+    }
+    return i;
+  }
+  
+   getTime(h:any,m:any,s:any,d:Date) {
+    var d = new Date();
+    var h = this.addZero(d.getHours());
+    var m = this.addZero(d.getMinutes());
+    var s = this.addZero(d.getSeconds());
+    this.finalTime = h + ":" + m + ":" + s;
   }
 
  
