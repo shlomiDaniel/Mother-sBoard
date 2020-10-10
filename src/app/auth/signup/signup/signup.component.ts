@@ -44,11 +44,11 @@ export class SignupComponent implements OnInit {
   }
   onSignup(){
     // alert("aaaa");
-    if (this.form.invalid){
-      alert("error");
-    validateVerticalPosition
-      return;
-    }
+    // if (this.form.invalid){
+    //   alert("error2");
+    // validateVerticalPosition
+    //   return;
+    // }
     this.isLoading = true;
     if(this.mode==='signup'){
       alert("asdasd");
