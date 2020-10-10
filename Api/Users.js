@@ -122,6 +122,17 @@ router.get("/info/:email",(req,res,next)=>{
             message:"email not exist."
         });
         
+    }else{
+      if(user.facebookId){
+        return res.json({
+          message:"email in facebook,you need to log in with facebook."
+      });
+      }
+      if(user.googleId){
+        return res.json({
+          message:"email in google,you need to log in with google."
+      });
+      }
     }
     fetchUser = user;
     return  bcrypt.compare(req.body.password,user.password);
@@ -520,6 +531,7 @@ router.post('/contact-us', (req,res)=>{
 
 
       router.get('/logIn/google',passport.authenticate('google',{
+        
         scope:['profile',"email"]
       }));
       // router.get('/logout',(req,res)=>{
@@ -540,9 +552,20 @@ router.post('/contact-us', (req,res)=>{
     }
 
      router.get('/logIn/google/redirect',passport.authenticate('google'),(req,res)=>{
+
+      // User.findOne({facebookId:req.user.facebookId}).then(data=>{
+      //   if(data){
+      //     alert("error face");
+      //   }
+      // })
+
      //res.send("you reached callback uri");
     // res.send(req.user);
     const _id = req.user._id;
+    // console.log(req.user);
+    // if(req.user.facebookId){
+    //   alert("face2");
+    // }
    // if(req.user){
       res.redirect('http://localhost:4200/profile/' + _id);
  //   }else{
@@ -556,9 +579,10 @@ router.post('/contact-us', (req,res)=>{
     }));
    
      router.get('/logIn/facebook/redirect',passport.authenticate('facebook'),(req,res)=>{
-    
+       console.log(req.user);
+     
       const _id = req.user.id;
-     console.log(req.user)
+     console.log(req.user._id);
       // if(req.user){
       res.redirect('http://localhost:4200/profile/' + _id);
     //   }else{

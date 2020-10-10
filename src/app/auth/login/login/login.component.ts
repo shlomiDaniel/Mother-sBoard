@@ -24,8 +24,9 @@ export class LoginComponent implements OnInit {
   }
 
   googlelogin(){
-    alert("asdasdasdasdasdas");
-
+    
+    
+    
     this.authService.logInWithGoogle();
 
     }

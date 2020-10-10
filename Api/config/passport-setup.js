@@ -20,17 +20,22 @@ passport.deserializeUser((id,done)=>{
 });
 
 passport.use(
+
+  
     new GoogleStrategy({
         clientID :keys.google.clientID,
         clientSecret:keys.google.clientSecret,
         callbackURL : "/user/logIn/google/redirect"
+        
  
         //client id
         //client server
 ///google st' options
   },(accessToken,refreshToken,profile,done)=>{
+   
    // console.log(profile);
    console.log(profile);
+   
    //console.log("new user created email:" + profile.emails.value); 
      User.findOne({googleId:profile.id}).then((currentUser)=>{
         if(currentUser){

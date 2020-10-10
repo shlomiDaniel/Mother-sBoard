@@ -71,13 +71,15 @@ export class UserProfileComponent implements OnInit {
      );
 
      if(this._idUser!==undefined){
-       alert("asdasda");
+      // alert("asdasda");
       
         
         this.http.get<{token:string,expiresIn:Date,user:AuthData}>("http://localhost:4500/user/info/google/" + this._idUser).subscribe(data=>{
-          
+          alert("google2")
          //console.log("asdasd"+data.expiresIn);
        //  this.authService.saveAuthData(data.token,data.expiresIn,data.user.email);
+       console.log("datadatadatadatadatadatadatadatadata");
+       console.log(data.user);
        this.authService.setToken(data.token);
        if(this.authService.loggedIn()){
         console.log(this.userName);

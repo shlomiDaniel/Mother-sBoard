@@ -267,6 +267,8 @@ import { throwToolbarMixedModesError } from '@angular/material/toolbar';
         //localStorage.getItem("mytime");
       ///  const _id = localStorage.getItem('_id');
       //  this.saveDataInLocalStorage()
+
+           
         let authData : AuthData = {_id:"",email:email,password:password,firstName:"",lastName:"",phoneNumber:"",userName:"",googleId:"",imagePath:"",address:this.address,orderHistory:this.orderHistory,isActive:false,Cart:this.Cart};
         
 
@@ -299,7 +301,7 @@ import { throwToolbarMixedModesError } from '@angular/material/toolbar';
                   alert("you are active welcome");
               }else{
                 alert("not active,please confirm your mail");
-                this.router.navigate(['/']);
+                this.router.navigate(['/login']);
               }
               
               if(token){
@@ -331,6 +333,7 @@ import { throwToolbarMixedModesError } from '@angular/material/toolbar';
 
 
     facebookLogIn(){
+      alert("face");
       location.href = "http://localhost:4500/user/login/facebook";
     }
 
