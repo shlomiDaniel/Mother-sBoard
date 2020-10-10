@@ -35,7 +35,7 @@ router.post("/addOrder",(req,res)=>{
          amount:req.body.amount,
           address:req.body.address,
         status:req.body.status,
-      
+       date:new Date()
   
   
     });

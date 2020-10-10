@@ -74,9 +74,9 @@ export class NavbarComponent implements OnInit,OnDestroy {
       this.city = data.user.address.city.name;
       this.country = data.user.address.state.name;
       this.cuttentTime = "";
-      alert(this.city);
+     // alert(this.city);
       axios.get("http://api.openweathermap.org/data/2.5/weather?q=" + this.city + "&appid=13e12fcb31df35db1cf242d892164175").then(data=>{
-        alert(this.city);
+       // alert(this.city);
         let temp = parseFloat(data.data.main.temp)-273.5;
         this.currentTemp = temp;
         this.currentTemp = this.currentTemp.toFixed(0);
@@ -199,39 +199,18 @@ export class NavbarComponent implements OnInit,OnDestroy {
        console.log(location);
       // console.log(currentTime);
        console.log(date);
-       //this.location = location;
-      // this.currentTime = currentTime;
-      // this.date = date;
-       //let dateTime = new Date(time.data.date_time);
-       //console.log(dateTime);
-       //let seconds = dateTime.getSeconds();
-      // console.log(seconds);
        
-       // this.myDate = new Date();
-
-
-       // // let d = new Date();
-
-       // let utc = this.myDate.getTime() + (this.myDate.getTimezoneOffset() * 60000);
-   
-       // let nd = new Date(utc + (3600000*data.data.timezone));
-   
-       // console.log( "The local time in " + "city" + " is " + nd.toLocaleString());
   
-       this.currentTime = time.data.time_24;
+       this.currentTime = time.data.date_time;
        let timeNow = new Date(this.currentTime);
 
          this.interval = setInterval(() => {         //replaced function() by ()=>
-          let time = new Date();
+          let time = timeNow;
           
           this.getTime(time.getHours(),time.getMinutes(),time.getSeconds,time);
          
          
-         // this.finalTime = time.getHours()+":"+time.getMinutes()+":"+time.getSeconds();
-           // console.log(time.getHours()+":"+time.getMinutes()+":"+time.getSeconds()); 
-           //  console.log(time.getMinutes()+":");
-           //  console.log(time.getSeconds());
-            // just testing if it is working
+    
 
 
 
@@ -258,5 +237,27 @@ export class NavbarComponent implements OnInit,OnDestroy {
     this.finalTime = h + ":" + m + ":" + s;
   }
 
+
+  values = '';
+
+  onKey(event: any) { 
+    // without type info
+
+    if(event.keyCode === 13){
+      this.values += event.target.value;
+     // alert(this.values);
+      if(this.values!==""){
+        location.href = "/search/" + this.values;
+
+      }else{
+        location.href = "/search/item";
+
+      }
+    }
+    
+    //alert(this.values);
+  }
  
 }
+
+

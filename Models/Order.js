@@ -7,7 +7,8 @@ const OrderSchema = new mongoose.Schema({
     amount:[],
     status :String,
     address: Address,
-    userId:String
+    userId:String,
+    date:Date
     
 });
 

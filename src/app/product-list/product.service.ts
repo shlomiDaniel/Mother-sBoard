@@ -78,6 +78,7 @@ export  class ProductsService {
   
   }>('http://localhost:4500/product/' +name);
    }
+
   getProductByCompany(company,products){
     let array;
     array =  products.filter(data=>{
@@ -102,20 +103,20 @@ export  class ProductsService {
   getAndReturnProducts(){
     //return [...this.gpus];
      //this.http.get<{gpus: Gpu[]}>('http://localhost:4500/gpu').subscribe((gpuData)=>{
-    this.http.get<{products: Product[]}>('http://localhost:4500/product').subscribe((productData)=>{
-     this.products = productData.products ;
+   return this.http.get<{products: any}>('http://localhost:4500/product');
+    //  this.products = productData.products ;
     //  console.log(gpuData);
     //   console.log(this.gpus);
     //   console.log("this one");
      
   
       
-       this.productsUpdated.next([...this.products]);
+      // this.productsUpdated.next([...this.products]);
      
      
-    });
-    console.log(this.products);
-    return this.products;
+ 
+    //console.log(this.products);
+   
   }
 
 

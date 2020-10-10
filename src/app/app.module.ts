@@ -126,14 +126,14 @@ const config = {
       libraries: ['places']
     }),
     RouterModule.forRoot([
-      {path: 'home', component: HomeComponent},
+      {path: '', component: HomeComponent},
       {path: 'products', component: ProductComponent},
       {path: 'products/:name', component: ProductComponent},
       // {path: 'cpus', component: CpuComponent},
 
       {path: 'items/:name', component: ItemsComponent},
       {path: 'users', component: UsersComponent},
-      {path: 'search', component: SearchPageComponent},
+      {path: 'search/:searchKey', component: SearchPageComponent},
       {path:'edit/:_id',component:ProductCreateComponent,canActivate:[AuthGuard]},
       {path:'user/edit/:_id',component:SignupComponent,canActivate:[AuthGuard]},
       {path:'create',component:ProductCreateComponent,canActivate:[AuthGuard]},

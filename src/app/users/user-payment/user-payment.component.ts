@@ -343,6 +343,9 @@ getAllProductsDis(){
     alert(email);
     this.paidFor = true;
     // location.href= '/confirmation';
+    let date = new Date();
+
+    
     this.authService.getUserByEmail(email).subscribe(data=>{
     let order = {userId:data.user._id,products:data.user.Cart.products,
       amount:data.user.Cart.amount,status:data.user.Cart.status,address:data.user.address}

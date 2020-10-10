@@ -304,6 +304,9 @@ export class UserDetailsExpandComponent implements OnInit {
         console.log(location);
        // console.log(currentTime);
         console.log(date);
+        console.log(time.data);
+        let time24 = time.data.time_24;
+        console.log(time24);
         this.location = location;
        // this.currentTime = currentTime;
         this.date = date;
@@ -323,11 +326,12 @@ export class UserDetailsExpandComponent implements OnInit {
     
         // console.log( "The local time in " + "city" + " is " + nd.toLocaleString());
    
-        this.currentTime = time.data.time_24;
-        let timeNow = new Date(this.currentTime);
-
+        this.currentTime = time.data.date_time;
+        
+       
           this.interval = setInterval(() => {         //replaced function() by ()=>
-           let time = new Date();
+            let time = new Date(this.currentTime);
+            console.log(time);
            this.finalTime = time.getHours()+":"+time.getMinutes()+":"+time.getSeconds();
              console.log(time.getHours()+":"+time.getMinutes()+":"+time.getSeconds()); 
             //  console.log(time.getMinutes()+":");

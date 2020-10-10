@@ -43,8 +43,8 @@
         <div class="row">
 
           <div style="display: inline;" class="col-6">
-
-            <input style="color: white;background-color: black;border: 1px solid white;margin-top: 10px;width: 100%;" type="text" placeholder="Search"/>
+            
+            <input (keyup)="onKey($event)" style="color: white;background-color: black;border: 1px solid white;margin-top: 10px;width: 100%;" type="text" placeholder="Search"/>
             <i style="color: white;float: right;margin-right: 5px;position: relative ;top:-20px;color: white;"class="fas fa-search fa-1x"></i>
             <!-- <div style="height: 25px;width:100% ;border: 1px solid white;margin-top: 10px;">
               
@@ -81,19 +81,34 @@
                           <a *ngIf="checkLoggingIn()" href="/profile/{{_id}}"  style="color: aliceblue;display: inline;" > Welcome :{{userName}}</a>
                          
                             
-                           <div *ngIf="changeText3"  style="height: 190px; width: 450px;background-color: #F0F8FF;position:fixed;z-index:5;top: 50px;left: 1100px;;border: orange 1px solid; " >
+                           <div *ngIf="changeText3"  style="height: 190px; width: 450px;background-color: #F0F8FF;position:fixed;z-index:5;left: 1100px;;border: orange 1px solid; " >
+                            
                             
                           <div  id="hover"   class="row" style="width: 250px;"  >
-                           <div   style="color: black;"  class="col-12"> <h2 style="font-weight: bolder;">Order History</h2>
-                            <div style="color: black;border-bottom: black 1px solid;width: 250px;"></div>
+                           <div   style="color: black;"  class="col-12"> <h2 style="font-weight: bolder;"><a href="/userOrderHistory/{{_id}}">Order History</a></h2>
+                            <div style="color: black;border-bottom: black 1px solid;width: 450px;"></div>
                     
                              
                             </div>
                           </div>
                           <div id="hover" class="row" style="width: 250px;"  >
                             <div  style="color: black;" class="col-12"> <h2 style="font-weight: bolder">User Profile</h2>
-                              <div style="color: black;border-bottom: black 1px solid;width: 250px;"></div>
+                              <div style="color: black;border-bottom: black 1px solid;width: 450px;"></div>
                             </div>
+                          </div>
+
+                          <div id="hover" class="row" style="width: 250px;"  >
+                            <div  style="color: black;" class="col-12"> <h2 style="font-weight: bolder">Go To Cart</h2>
+                              <div style="color: black;border-bottom: black 1px solid;width: 450px;"></div>
+                            </div>
+                          </div>
+
+                          <div id="hover" class="row" style="width: 250px;"  >
+                            <div  style="color: black;" class="col-12"> <h2 style="font-weight: bolder">Log Out</h2>
+                              <!-- <div style="color: black;border: black 1px solid;width: 450px;"></div> -->
+                            </div>
+                            <!-- <div  style="color: black;" class="col-6"> <h2 style="font-weight: bolder">Log Out</h2> -->
+                            <!-- </div> -->
                           </div>
                         
                           
@@ -160,7 +175,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark " style="background-color: black		;">
   <a class="navbar-brand" href="#">
-   <a href="/home">
+   <a href="/">
     <img  style="height: 50px;width: 50px;border-radius: 65px;"  src="https://previews.123rf.com/images/putracetol/putracetol1805/putracetol180502182/101179920-science-computer-logo-icon-design.jpg" alt="logo">
   </a> 
   </a>
@@ -282,7 +297,7 @@
           <i class="fas fa-caret-down" style="color: white;" ></i></a>
       </li>
       <li class="nav-item">
-        <a  id="menuNav" class="nav-link" href="/search" style="font-size:larger;color: white; ">SEARCH</a>
+        <a  id="menuNav" class="nav-link" href="/search/item" style="font-size:larger;color: white; ">SEARCH</a>
       </li>
       <li class="nav-item">
         <a  id="menuNav" *ngIf="checkLoggingIn()" class="nav-link" href="/create" style="font-size:larger;color: white; ">CREATE</a>
@@ -319,7 +334,7 @@
           Temperature:{{currentTemp}}°
         <!-- <img src="http://openweathermap.org/img/wn/01d@2x.png" style="height: 35px;width: 40px;"> -->
         </a>
-                <img src="http://openweathermap.org/img/wn/01d@2x.png" style="height: 30px;width: 30px;margin-top: -5px;">
+                <img src="{{img}}" style="height: 30px;width: 35px;margin-top: -5px;">
 
       </li>
 
