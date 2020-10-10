@@ -37,13 +37,19 @@
 
 
   <!-- <mat-label>Pick a Category</mat-label> -->
+
+  
   <mat-select placeholder="Pick a Category" formControlName="category"  >
     
     <mat-option *ngFor="let category of arrTemp" value={{category}} >{{category}}</mat-option>
     <p>You selected:</p>
   </mat-select>
 
-
+  <mat-form-field><br>
+    <input placeholder="Enter Key:" matInput type="text"  formControlName="key"  />
+    <mat-error style="color: blueviolet" *ngIf="form.get('key').invalid">Please Enter a Key</mat-error>
+  </mat-form-field><br>
+  
 
 
     <mat-form-field><br>

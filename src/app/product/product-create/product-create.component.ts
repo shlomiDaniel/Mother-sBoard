@@ -2,7 +2,7 @@ import { Component, OnInit , Output} from '@angular/core';
 import axios from 'axios';
 // @ts-ignore
 
-import {Product} from '../product.model';
+import {ProductModel} from '../product.model';
 // import {Category} from ;
 
 import {FormGroup, FormControl,Validators} from '@angular/forms';
@@ -14,13 +14,15 @@ import { ProductListComponent } from 'src/app/product-list/product-list.componen
 import { HttpClient } from '@angular/common/http';
 import { map, elementAt } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { validateVerticalPosition } from '@angular/cdk/overlay';
+
 @Component({
   selector: 'app-product-create',
   templateUrl: './product-create.component.html',
   styleUrls: ['./product-create.component.css']
 })
 export class ProductCreateComponent implements OnInit {
-  product: Product;
+  product: ProductModel;
    enteredContent = '';
    isLoading = false;
   enteredTitle = '';
@@ -31,7 +33,7 @@ export class ProductCreateComponent implements OnInit {
    _id : string;
    //selected = 'option2';
    form:FormGroup;
-  //name :"";
+  name :"";
    arrTemp =[];
   selected:any;
   filtered :any;
@@ -42,8 +44,8 @@ export class ProductCreateComponent implements OnInit {
   // tslint:disable-next-line:typedef
  getAllCategories(){
 
-  axios.get<{CategoryName:any[]}>('http://localhost:4500/category').then(data=>{
-   (data.data.CategoryName.forEach(el=>{
+  axios.get<{CategoryName:any[]}>('http://localhost:4500/category').then(a=>{
+   (a.data.CategoryName.forEach(el=>{
      this.arrTemp.push(el.name);
     
    }));
@@ -71,18 +73,23 @@ onOptionsSelected() {
  
 // }
 
-   if (this.form.invalid){
+//    if (this.form.invalid){
    
-   return;
- }
+//    return;
+//  }
+if (this.form.invalid){
+  alert("error");
+validateVerticalPosition
+  return;
+}
  this.isLoading = true;
  if(this.mode==='create'){
    this.productsService.addProduct(this.form.value.name,this.form.value.company, this.form.value.price,
-     this.form.value.description, this.form.value.imgPathCompanyLogo, this.form.value.numOfStars,this.form.value.image,this.form.value.manufacturer,this.form.value.category);
+     this.form.value.description, this.form.value.imgPathCompanyLogo, this.form.value.numOfStars,this.form.value.image,this.form.value.manufacturer ,this.form.value.category,this.form.value.key);
  }else{
  
    this.productsService.updateProduct(this._id,this.form.value.name, this.form.value.company, this.form.value.price,
-     this.form.value.description, this.form.value.imgPathCompanyLogo, this.form.value.numOfStars,this.form.value.image,this.form.value.manufacturer,this.form.value.category)
+     this.form.value.description, this.form.value.imgPathCompanyLogo, this.form.value.numOfStars,this.form.value.image,this.form.value.manufacturer,this.form.value.category,this.form.value.key)
  }
 
 //  this.gpusService.addGpu(form.value.name, form.value.company, form.value.price,
@@ -90,6 +97,8 @@ onOptionsSelected() {
 
 this.form.reset();
   }
+
+
   onImagePicker(event:Event){
      const file = (event.target as HTMLInputElement).files[0];
      this.form.patchValue({image:file});
@@ -110,6 +119,7 @@ this.form.reset();
     this.form = new FormGroup({
      // categoryName:new FormControl("",{validators:[Validators.required]}),
      name:new FormControl(null,{validators:[Validators.required]}),
+     key:new FormControl(null,{validators:[Validators.required]}),
      manufacturer:new FormControl(null,{validators:[Validators.required]}),
      category:new FormControl(null,{validators:[Validators.required]}),
      company:new FormControl(null,{validators:[Validators.required]}),
@@ -131,24 +141,33 @@ this.form.reset();
            
             this.productsService.getProductById(this._id).subscribe(data=>{
               this.isLoading = false;
-
-             this.product = {_id:data._id,name:data.name,company:data.company,numOfStars:data.numOfStars,imgPath:data.imgPath,
-              imgPathCompanyLogo:data.imgPathCompanyLogo,description:data.description,price:data.price,manufacturer:data.manufacturer,category:data.category}
-         
-          
-           this.form.setValue({
-             name:this.product.name,
+              console.log(data);
+              
+              this.product=data.product;
+              
              
-            company:this.product.company,
+            //  this.product = {_id:data._id,name:data.name,company:data.company,numOfStars:data.numOfStars,imgPath:data.imgPath,
+            //   imgPathCompanyLogo:data.imgPathCompanyLogo,description:data.description,price:data.price,manufacturer:data.manufacturer,category:data.category}
+          console.log(this.product);
+          
+          console.log("#$$$$$$$$$$$$$$$$$$$$$$$E");
+
+           this.form.setValue({
+
+            
+             name: this.product.name,
+            company: this.product.company,
             numOfStars:this.product.numOfStars,
-            imgPathCompanyLogo:this.product.imgPathCompanyLogo,
-            imgPath:this.product.imgPath,
-            description:this.product.description,
-            price:this.product.price,
-            image:this.product.imgPath,
-           manufacturer:this.product.manufacturer,
-            category:this.product.category
+            imgPathCompanyLogo: this.product.imgPathCompanyLogo,
+            imgPath: this.product.imgPath,
+            description: this.product.description,
+            price: this.product.price,
+            image: this.product.imgPath,
+            manufacturer: this.product.manufacturer,
+            category: this.product.category,
+            key: this.product.key
           });
+          console.log(data);
           //  console.log(this.gpu.name);
           });
          }else{

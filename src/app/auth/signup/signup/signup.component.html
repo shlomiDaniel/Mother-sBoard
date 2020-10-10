@@ -56,7 +56,7 @@
       <input placeholder="Enter email:" matInput type="text"  formControlName="email"  />
       <mat-error style="color: blueviolet" *ngIf="form.get('email').invalid">Please Enter email</mat-error>
     </mat-form-field><br>
-  <mat-form-field  ><br>
+  <mat-form-field *ngIf="flag" ><br>
     <input placeholder="Enter password:" matInput type="text"    formControlName="password"  />
     <mat-error style="color: blueviolet" *ngIf="form.get('password').invalid" >Please Enter password</mat-error>
   </mat-form-field  ><br>
@@ -87,18 +87,6 @@
   </mat-form-field><br><br>
 
 
-  <mat-select placeholder="Pick a Country" formControlName="country"  >
-    
-    <mat-option *ngFor="let country of arrTemp" value={{country}} >{{country}}</mat-option>
-    <p>You selected:</p>
-  </mat-select>
-
-
-  <mat-select placeholder="Pick a city" formControlName="city"  >
-    
-    <mat-option *ngFor="let city of arrCity" (click)="cityChecked()" value={{city}} >{{city}}</mat-option>
-    <p>You selected:</p>
-  </mat-select>
 
 
   <button mat-raised-button

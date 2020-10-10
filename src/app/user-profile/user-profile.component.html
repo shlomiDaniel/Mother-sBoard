@@ -34,10 +34,15 @@
       <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
     </div>
     
-    
-    <button type="submit" class="btn btn-primary">Edit Profile Here</button><br><br><br>
+
+     <button type="submit" class="btn btn-primary">     
+          <a  *ngIf="checkConnections()" [routerLink]="['/user/edit',_idUser]" mat-button color="primary">
+            Edit Profile
+          </a>
+      </button><br><br><br> 
     <button type="submit" class="btn btn-primary">Go To Cart</button>
-    <button (click)="logOut()" type="submit" class="btn btn-primary">Log out</button>
+    <button *ngIf="checkConnections()"  class="btn btn-primary" type="submit" (click)="onLogOut()"  mat-button>LogOut</button>
+
     <button (click)="orderHistory()" type="submit" class="btn btn-primary"><h1>Order History</h1></button>
     <!-- <pre *ngIf="auth.userProfile$ | async as profile">
       <code>{{ profile | json }}</code>

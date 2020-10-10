@@ -30,9 +30,12 @@ export class HomeComponent implements OnInit {
   randomGpus(gpus:any){
     
     
-    for(let i = 0 ; i<2;i++){
+    for(let i = 0 ; i<5;i++){
       var item = gpus[Math.floor(Math.random() * gpus.length)];
-      this.arrGpus.push(item);
+      if(item!==undefined){
+        this.arrGpus.push(item);
+      }
+      
     }
     console.log( this.arrGpus);
     //this.newProduct = this.something;
@@ -41,7 +44,7 @@ export class HomeComponent implements OnInit {
   randomCpus(cpus:any){
     let arr = [];
     
-    for(let i = 0 ; i<2;i++){
+    for(let i = 0 ; i<5;i++){
       var item = cpus[Math.floor(Math.random() * cpus.length)];
       this.arrCpus.push(item);
     }
@@ -55,7 +58,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     
-   this.http.get<{gpus:any,cpus:any,powerSupply:any,cases:any,memoryRam:any}>("http://localhost:4500/product").subscribe(data=>{
+   this.http.get<{gpus:any,cpus:any,powerSupply:any,cases:any,memoryRam:any}>("http://localhost:4500/product/getProductByGroup").subscribe(data=>{
       this.gpus = data.gpus;
       this.cpus = data.cpus;
       this.powerSupply = data.powerSupply;

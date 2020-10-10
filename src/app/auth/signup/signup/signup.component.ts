@@ -23,7 +23,7 @@ import { AuthData } from '../../auth-data.model';
 })
 export class SignupComponent implements OnInit {
   isLoading=false;
-
+  flag= false;
 
   user: AuthData;
   enteredContent = '';
@@ -43,12 +43,15 @@ export class SignupComponent implements OnInit {
     // this.getAllCityByCountry(this.city);
   }
   onSignup(){
+    // alert("aaaa");
     if (this.form.invalid){
+      alert("error");
     validateVerticalPosition
       return;
     }
     this.isLoading = true;
     if(this.mode==='signup'){
+      alert("asdasd");
       this.authService.createUser1(this.form.value.email,this.form.value.password,this.form.value.firstName,this.form.value.lastName,this.form.value.phoneNumber,this.form.value.userName);
       this.router.navigate(['/login']);
     }else{
@@ -99,9 +102,13 @@ export class SignupComponent implements OnInit {
 
 
   ngOnInit(): void {
-  
+    if(this.authService.loggedIn()){
+      this.flag=false;
+    }else{
+      this.flag=true;
+    }
     this.form = new FormGroup({
-      country:new FormControl(null,{validators:[Validators.required]}),
+      
       firstName:new FormControl(null,{validators:[Validators.required]}),
       lastName:new FormControl(null,{validators:[Validators.required]}),
       phoneNumber:new FormControl(null,{validators:[Validators.required]}),
@@ -124,7 +131,7 @@ export class SignupComponent implements OnInit {
                console.log("*************");
                //console.log(data.firstName);
               this.user = data.user;
-          
+           
                console.log( this.user);
             this.form.setValue({
             
@@ -135,6 +142,7 @@ export class SignupComponent implements OnInit {
               email:this.user.email,
               phoneNumber:this.user.phoneNumber,
               password:this.user.password,
+              
            
              
            });

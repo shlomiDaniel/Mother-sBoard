@@ -90,12 +90,12 @@ export class UsersComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
-    if (!localStorage.getItem('foo')) { 
-      localStorage.setItem('foo', 'no reload') 
-      location.reload() 
-    } else {
-      localStorage.removeItem('foo') 
-    }
+    // if (!localStorage.getItem('foo')) { 
+    //   localStorage.setItem('foo', 'no reload') 
+    //   location.reload() 
+    // } else {
+    //   localStorage.removeItem('foo') 
+    // }
 
   
 
@@ -114,10 +114,12 @@ export class UsersComponent implements OnInit, OnDestroy {
     this.isLoading = true;
    
     this.authService.getUsers();
+    console.log(this.authService.getUsers());
     this.usersSub = this.authService.getUserUpdateListner().subscribe((users: AuthData[]) => {
       this.isLoading = false;
       this.users = users;
       this.users
+      console.log(this.users);
       
     });
 

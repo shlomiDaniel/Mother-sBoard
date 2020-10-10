@@ -38,15 +38,7 @@ export  class ProductsService {
   //   return array;
   // }
   getProductById(_id:string){
-   return this.http.get< {name:string;company:string;
-   price:string;
-   imgPath:string;
-   description:string;
-   imgPathCompanyLogo:string;
-   numOfStars:string;
-   category:string;
-   manufacturer:string;
-   _id:string}>('http://localhost:4500/product/info/' +_id);
+   return this.http.get< {product:any}>('http://localhost:4500/product/info/' +_id);
   }
 
 
@@ -183,7 +175,7 @@ export  class ProductsService {
  }
   
   // tslint:disable-next-line:typedef
-  addProduct( name: string, company: string, price: string,  description: string, imgPathCompanyLogo: string, numOfStars: string,image:File,manufacturer:string,category:string){
+  addProduct( name: string, company: string, price: string,  description: string, imgPathCompanyLogo: string, numOfStars: string,image:File,manufacturer:string,category:string,key:string){
     // const gpu: Gpu = {
     //   _id:null,
     //   name,
@@ -207,10 +199,12 @@ export  class ProductsService {
     productData.append("numOfStars",numOfStars);
     productData.append("price",price);
     productData.append("image",image,name);
+    productData.append("key",key);
+
     this.http.post<{product: Product}>('http://localhost:4500/product',productData).subscribe(data=>{
         const product: Product = {_id:data.product._id,name:name,company:company,price:price,
           imgPath:data.product.imgPath,description:description,imgPathCompanyLogo:imgPathCompanyLogo,
-          numOfStars:numOfStars,manufacturer:manufacturer,category:category
+          numOfStars:numOfStars,manufacturer:manufacturer,category:category,key:key
         };
       this.products.push(product);
       this.productsUpdated.next([...this.products]);
@@ -228,7 +222,7 @@ export  class ProductsService {
     });
   }
 
-  updateProduct(_id:string,name:string,company:string,price:string,description:string,numOfStars:string,imgPathCompanyLogo:string,image:File | string,manufacturer:string,category:string){
+  updateProduct(_id:string,name:string,company:string,price:string,description:string,numOfStars:string,imgPathCompanyLogo:string,image:File | string,manufacturer:string,category:string ,key:string){
           let productData : Product | FormData;
        if(typeof(image)==="object"){
         productData = new FormData();
@@ -242,6 +236,8 @@ export  class ProductsService {
           productData.append("numOfStars",numOfStars);
           productData.append("_id",_id);
           productData.append("image",image,name);
+          productData.append("key",key);
+
        }else{
         productData = {
           _id:_id,
@@ -253,7 +249,8 @@ export  class ProductsService {
           numOfStars:numOfStars,
           imgPathCompanyLogo:imgPathCompanyLogo
           ,category:category,
-          manufacturer:manufacturer
+          manufacturer:manufacturer,
+          key:key
          };
 
        }
@@ -262,7 +259,7 @@ export  class ProductsService {
         const updateProducts = [...this.products];
         const oldProductInd = updateProducts.findIndex(p=>p._id===_id);
         const product : Product = {name:name,_id:_id,price:price,company:company,imgPathCompanyLogo:imgPathCompanyLogo,imgPath:image,description:description,numOfStars:numOfStars,
-        category:category,manufacturer:manufacturer
+        category:category,manufacturer:manufacturer,key:key
         };
         updateProducts[oldProductInd]=product;
         this.products = updateProducts;

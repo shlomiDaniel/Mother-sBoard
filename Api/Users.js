@@ -39,6 +39,7 @@ router.get("/info/:email",(req,res,next)=>{
     })
    });
 
+   
 
 
      router.get("/:_id",(req,res,next)=>{
@@ -74,7 +75,14 @@ router.get("/info/:email",(req,res,next)=>{
                     userName:req.body.userName,
                     firstName:req.body.firstName,
                     lastName:req.body.lastName,
-                    phoneNumber:req.body.phoneNumber
+                    phoneNumber:req.body.phoneNumber,
+                    Cart:req.body.Cart,
+                    orderHistory:req.body.orderHistory,
+                    address:req.body.address,
+                    isActive:false
+
+
+
                 });
                 user.save()
                 // .then(result=>{
@@ -141,7 +149,11 @@ router.get("/info/:email",(req,res,next)=>{
             lastName:fetchUser.lastName,
             phoneNumber:fetchUser.phoneNumber,
             _id:fetchUser._id,
-            isActive:fetchUser.isActive
+            isActive:fetchUser.isActive,
+            Cart:fetchUser.Cart,
+             address:fetchUser.address,
+             orderHistory:fetchUser.orderHistory
+
             
             //console.log("token success:" + token)
 
@@ -211,6 +223,10 @@ router.get("/info/:email",(req,res,next)=>{
 
     });
 
+    router.get("/logout",(req,res)=>{
+      req.logOut();
+     console.log("asdasdasdasdassssssssssssssssssssssssssssss");
+    })
   
 
     router.get("/:_id",(req,res,next)=>{
@@ -330,8 +346,6 @@ router.get("/info/:email",(req,res,next)=>{
          
       });
       
-    
-
 
        const sendMailNewPass = (user, callback) => {
         const transporter = nodemailer.createTransport({
@@ -581,10 +595,10 @@ router.post('/contact-us', (req,res)=>{
     //   // console.log(req);
     //  });
     // router.get("/info/info/info/logout",(req,res)=>{
-    //  // console.log("asdasdasda"+req.user);
-    //   //req.logout();
-    //  // res.redirect("http://localhost:4200/home");
-    //   //console.log(req.user);
+    //  console.log("asdasdasda"+req.user);
+    //   req.logout();
+    //  res.redirect("http://localhost:4200/home");
+    //   console.log(req.user);
     // });
 
     //req.get()

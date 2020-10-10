@@ -32,21 +32,37 @@ export class UserProfileComponent implements OnInit {
     
    }
 
-
    
-   logOut(){
-     //alert("asdasd");
-     this.http.get<{user:AuthData}>('http://localhost:4500/user/info/info/info/logout').subscribe(data=>{
+   checkConnections(){
+    return this.authService.loggedIn();
+  }
+  //  updateUser(_id:string){
+  //   this.authService.getUserById(_id);
+  // }
+   
+  //  logOut(){
+  //    //alert("asdasd");
+  //    this.http.get<{user:AuthData}>('http://localhost:4500/user/info/info/info/logout').subscribe(data=>{
        
-     });
-   }
+  //    });
+  //  }
  
   
   
-   
+   onLogOut(){
+    this.authService.LogOut();
+  }
   
 
   ngOnInit(): void {
+    
+    if (!localStorage.getItem('foo')) { 
+      localStorage.setItem('foo', 'no reload') 
+      location.reload() 
+    } else {
+      localStorage.removeItem('foo') 
+    }
+
 
     console.log('queryParams');
     this.activeRoute.params.subscribe(
@@ -88,19 +104,22 @@ export class UserProfileComponent implements OnInit {
 
      
 
-
-      const _id = localStorage.getItem('_id');
-      this.http.get<{user:AuthData}>('http://localhost:4500/user/' +_id).subscribe(data=>{
-      // console.log(data.user.firstName);  
-      // this.user.firstName = data.user.firstName;
-       this.firstName = data.user.firstName,
-       this.lastName = data.user.lastName,
-       this.phoneNumber = data.user.phoneNumber,
-       this.email = data.user.email,
-       this.userName = data.user.userName
+      if(this.authService.loggedIn()){
+        const _id = localStorage.getItem('_id');
+        this.http.get<{user:AuthData}>('http://localhost:4500/user/' +_id).subscribe(data=>{
+        // console.log(data.user.firstName);  
+        // this.user.firstName = data.user.firstName;
+         this.firstName = data.user.firstName,
+         this.lastName = data.user.lastName,
+         this.phoneNumber = data.user.phoneNumber,
+         this.email = data.user.email,
+         this.userName = data.user.userName
+      })
+      }
+    
        
       
-    });
+    
 
   // });
      }

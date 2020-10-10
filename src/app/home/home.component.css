@@ -109,3 +109,14 @@ font-weight: bold;
   flex-direction: row;
   
 }
+
+#hoverHomePic:hover{
+background-color: black;
+color: white;
+
+}
+
+#blackHover:hover{
+  background-color: #545353;
+ 
+}

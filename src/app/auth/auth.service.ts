@@ -17,6 +17,7 @@ import { from, of, BehaviorSubject, combineLatest } from 'rxjs';
 import { tap, concatMap, shareReplay } from 'rxjs/operators';
 import { User } from 'firebase';
 import { Address } from '../auth/Address-data.model';
+import { throwToolbarMixedModesError } from '@angular/material/toolbar';
 
 
 
@@ -29,9 +30,11 @@ import { Address } from '../auth/Address-data.model';
     public users : AuthData [];
     private tokenTimer : any;
     public errorMessage ="";
+    address:Address;
+    orderHistory :any;
     private authStatusListner = new Subject<boolean>();
    private isAuthenticated = false;
-
+   Cart :any;
    fromData : string;
    toData : string;
    
@@ -164,12 +167,13 @@ import { Address } from '../auth/Address-data.model';
       this.isAuthenticated = false;
       this.authStatusListner.next(false);
       clearTimeout(this.tokenTimer);
-      this.clearOfData();
      this.http.get("http://localhost:4500/user/logout").subscribe(data=>{
      console.log("logging out");  
      console.log(data);
+     
      })
-      this.router.navigate(["/home"]);
+     this.clearOfData();
+      this.router.navigate(["/"]);
     }
 
     getUserData(){
@@ -225,8 +229,8 @@ import { Address } from '../auth/Address-data.model';
 
       
 
-
-         const authData : AuthData = {_id:"",email:email,password:password,firstName:firstName,lastName:lastName,phoneNumber:phoneNumber,userName:userName,googleId:"",imagePath:"",Cart:null,isActive:false,orderHistory:null,address:null};
+         
+         const authData : AuthData = {_id:"",email:email,password:password,firstName:firstName,lastName:lastName,phoneNumber:phoneNumber,userName:userName,googleId:"",imagePath:"",Cart:this.Cart,isActive:false,orderHistory:this.orderHistory,address:this.address};
           this.http.post<{user:AuthData,message:string}>("http://localhost:4500/user/signup",authData).subscribe(res=>{
            this.saveDataInLocalStorage(email,firstName,lastName,phoneNumber,userName);
              //alert(res.message);
@@ -263,7 +267,7 @@ import { Address } from '../auth/Address-data.model';
         //localStorage.getItem("mytime");
       ///  const _id = localStorage.getItem('_id');
       //  this.saveDataInLocalStorage()
-        let authData : AuthData = {_id:"",email:email,password:password,firstName:"",lastName:"",phoneNumber:"",userName:"",googleId:"",imagePath:"",address:null,orderHistory:null,isActive:false,Cart:null};
+        let authData : AuthData = {_id:"",email:email,password:password,firstName:"",lastName:"",phoneNumber:"",userName:"",googleId:"",imagePath:"",address:this.address,orderHistory:this.orderHistory,isActive:false,Cart:this.Cart};
         
 
 
@@ -292,10 +296,10 @@ import { Address } from '../auth/Address-data.model';
               alert(res.isActive);
              
               if(res.isActive===true){
-                 // alert("you are active welcome");
+                  alert("you are active welcome");
               }else{
                 alert("not active,please confirm your mail");
-                this.router.navigate['/home'];
+                this.router.navigate(['/']);
               }
               
               if(token){
@@ -310,8 +314,8 @@ import { Address } from '../auth/Address-data.model';
                 this.saveId(res._id);
                 this.saveDataInLocalStorage(email,res.firstName,res.lastName,res.phoneNumber,res.userName);
                 console.log(exDate);
-                this.router.navigate(["/home"]);
-              // window.location.reload();
+                this.router.navigate(['/profile/' + res._id]);
+              //  window.location.reload();
               }
               
           });
@@ -530,7 +534,7 @@ import { Address } from '../auth/Address-data.model';
       getUsers(){
        
             //this.http.get<{gpus: Gpu[]}>('http://localhost:4500/gpu').subscribe((gpuData)=>{
-    this.http.get<{users: AuthData[],message:string }>('http://localhost:4500/user'
+    this.http.get<{users: any }>('http://localhost:4500/user'
     ).pipe(
         
         map((userData)=>{
@@ -547,7 +551,7 @@ import { Address } from '../auth/Address-data.model';
       _id:user._id,
       googleId:user.googleId,
       imagePath:user.imagePath,
-      cart:user.Cart,
+      Cart:user.Cart,
       orderHistory:user.orderHistory,
        isActive:false,
        
@@ -560,7 +564,7 @@ import { Address } from '../auth/Address-data.model';
     }))
     .subscribe((users)=>{
         
-    // this.users = users;
+     this.users = users;
       // console.log(gpus);
        this.UsersUpdated.next([...this.users]);
     });
