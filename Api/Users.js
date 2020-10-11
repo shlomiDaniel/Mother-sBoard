@@ -25,6 +25,7 @@ const emailToken = "";
 var http = require('follow-redirects').http;
 const product = require('../Models/Product');
 const Product = require('../Models/Product');
+// const { data } = require('jquery');
 
 const url = "aa";
 router.use(cookieSession({
@@ -79,7 +80,8 @@ router.get("/info/:email",(req,res,next)=>{
                     Cart:req.body.Cart,
                     orderHistory:req.body.orderHistory,
                     address:req.body.address,
-                    isActive:false
+                    isActive:false,
+                    role:req.body.role
 
 
 
@@ -164,6 +166,7 @@ router.get("/info/:email",(req,res,next)=>{
             Cart:fetchUser.Cart,
              address:fetchUser.address,
              orderHistory:fetchUser.orderHistory
+            //  role:fetchUser.role
 
             
             //console.log("token success:" + token)
@@ -829,14 +832,30 @@ router.post('/contact-us', (req,res)=>{
         res.json({user:data})
        });
 
-      // 5f79c8ccbebe0732244c8966
-
-        // User.update({email:req.params.email}, {$set: {"Cart.status":"Active","_id.":id}},{multi: true}).then(u=>{
-        //   res.json({u:u})
-        // });
       });
-
+    })
       
 
-      })
+       router.put("/changRole/:email/:role",(req,res)=>{
+      //   User.findOneAndUpdate({_id:req.params._id},{$set:{"role":req.params.role}}).then(dataUser=>{
+      //     res.json({user:dataUser})
+      // }).then(data2=>{
+      //   res.json({user:data2})
+      // })
+
+      User.findOneAndUpdate({email:req.params.email},{$set:{"role":req.params.role}}).then(user=>{
+        console.log(user);
+        
+           // alert(`Confirmation success welcome to website`)
+          
+       
+       });
+       })
+       
+         
+        
+ 
+
+     
+    
     module.exports = router;

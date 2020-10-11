@@ -35,13 +35,26 @@ export class SignupComponent implements OnInit {
   form :FormGroup;
   arrTemp = [];
   arrCity = [];
+  // roles =[];
+  tempEmail = "";
+  rolePick="user";
+  isAdmin = false;
+
+  roles = [
+    {id:1,title:'admin'},
+    {id:2,title:'user'},
+    {id:3,title:'manager'}
+  ]
 
   // usersService:UserService;
-  constructor(public authService: AuthService,private router : Router,public route :ActivatedRoute) { 
+  constructor(public authService: AuthService,private router : Router,public route :ActivatedRoute,public http:HttpClient) { 
     // this.getAllCountries();
    
     // this.getAllCityByCountry(this.city);
   }
+
+
+
   onSignup(){
     // alert("aaaa");
     // if (this.form.invalid){
@@ -49,14 +62,18 @@ export class SignupComponent implements OnInit {
     // validateVerticalPosition
     //   return;
     // }
+
+    
+
     this.isLoading = true;
     if(this.mode==='signup'){
       alert("asdasd");
-      this.authService.createUser1(this.form.value.email,this.form.value.password,this.form.value.firstName,this.form.value.lastName,this.form.value.phoneNumber,this.form.value.userName);
+
+      this.authService.createUser1(this.form.value.email,this.form.value.password,this.form.value.firstName,this.form.value.lastName,this.form.value.phoneNumber,this.form.value.userName,this.rolePick);
       this.router.navigate(['/login']);
     }else{
       this.authService.updateUser(this._id,this.form.value.firstName, this.form.value.lastName, this.form.value.phoneNumber,
-        this.form.value.userName, this.form.value.password, this.form.value.email);
+        this.form.value.userName, this.form.value.password, this.form.value.email,this.rolePick);
     }
    
     this.form.reset();
@@ -102,13 +119,27 @@ export class SignupComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.flag=true;
+
+
+
     if(this.authService.loggedIn()){
-      this.flag=false;
+      let emailAdmin= localStorage.getItem("email");
+      this.authService.getUserByEmail(emailAdmin).subscribe(data=>{
+        if(data.user.role==="admin"){
+          this.isAdmin =true;
+        }
+        if(data.user.role==="user"){
+         this.flag=false;
+        }
+      })
+      
     }else{
-      this.flag=true;
+     // this.flag=false;
     }
     this.form = new FormGroup({
-      
+      role:new FormControl(null,{validators:[Validators.required]}),
+
       firstName:new FormControl(null,{validators:[Validators.required]}),
       lastName:new FormControl(null,{validators:[Validators.required]}),
       phoneNumber:new FormControl(null,{validators:[Validators.required]}),
@@ -142,6 +173,7 @@ export class SignupComponent implements OnInit {
               email:this.user.email,
               phoneNumber:this.user.phoneNumber,
               password:this.user.password,
+              role:this.user.role
               
            
              
@@ -156,6 +188,27 @@ export class SignupComponent implements OnInit {
     
         });
     
+  }
+
+  changeValue(value:any){
+    let selectedItem:any;
+    selectedItem = this.roles.filter(item => item.title == value)[0]
+    console.log(selectedItem.id);
+    this.rolePick=selectedItem.title;
+    let obj={};
+    if (this.authService.loggedIn()){
+      // let emailUser=localStorage.getItem("email");
+      this.tempEmail = this.form.value.email;
+      this.authService.getUserByEmail(this.tempEmail).subscribe(data2=>{
+        this._id=data2.user._id;
+      })
+      if(this.isAdmin){
+        alert("aaa");
+        this.http.put("http://localhost:4500/user/changRole/" + this.tempEmail + "/" + selectedItem.title,obj).subscribe(data=>{
+          console.log(data);
+        })
+      }
+    }
   }
 
 }

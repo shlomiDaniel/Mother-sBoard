@@ -10,6 +10,7 @@ import { ThrowStmt } from '@angular/compiler';
 import { MapsAPILoader } from '@agm/core';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { jsdom } from 'jsdom';
 
 import { tap } from 'rxjs/operators';
 

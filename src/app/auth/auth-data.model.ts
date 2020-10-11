@@ -15,5 +15,6 @@ export interface AuthData{
     address:Address,
     isActive:boolean,
     Cart : UserCartSchema,
-    orderHistory: [] 
+    orderHistory: [] ,
+    role:String
 }

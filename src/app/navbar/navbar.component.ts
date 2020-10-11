@@ -16,6 +16,8 @@ export class NavbarComponent implements OnInit,OnDestroy {
   private authListenerSubs : Subscription;
   email= "";
   firstName="";
+  changeText4 :boolean;
+  isAdmin = false;
   userName="";
   currentTime : Date;
  // finalTime : Date;
@@ -69,8 +71,11 @@ export class NavbarComponent implements OnInit,OnDestroy {
   }
   ngOnInit(): void {
     
-
+    this.changeText4 = false;
     this.authService.getUserByEmail(localStorage.getItem("email")).subscribe(data=>{
+      if(data.user.role==="admin"){
+        this.isAdmin = true;
+      }
       this.city = data.user.address.city.name;
       this.country = data.user.address.state.name;
       this.cuttentTime = "";

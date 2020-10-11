@@ -182,7 +182,7 @@ import { throwToolbarMixedModesError } from '@angular/material/toolbar';
     createUser(email:string,password: string,firstName: string,lastName: string,phoneNumber: string,userName:string,address : Address){
          const authData : AuthData = {_id:"",email:email,password:password,
          firstName:firstName,lastName:lastName,phoneNumber:phoneNumber
-         ,userName:userName,googleId:"",imagePath:"",isActive:false,orderHistory:null,Cart:null,address:address};
+         ,userName:userName,googleId:"",imagePath:"",isActive:false,orderHistory:null,Cart:null,address:address,role:""};
         //   this.http.post("http://localhost:4500/user/signup",authData).subscribe(res=>{
    
         //       console.log(res);
@@ -215,7 +215,7 @@ import { throwToolbarMixedModesError } from '@angular/material/toolbar';
        
     }
 
-    createUser1(email:string,password: string,firstName: string,lastName: string,phoneNumber: string,userName:string){
+    createUser1(email:string,password: string,firstName: string,lastName: string,phoneNumber: string,userName:string,role:string){
 
         // const authData = new FormData();
         // // userData.append("_id",null);
@@ -230,7 +230,7 @@ import { throwToolbarMixedModesError } from '@angular/material/toolbar';
       
 
          
-         const authData : AuthData = {_id:"",email:email,password:password,firstName:firstName,lastName:lastName,phoneNumber:phoneNumber,userName:userName,googleId:"",imagePath:"",Cart:this.Cart,isActive:false,orderHistory:this.orderHistory,address:this.address};
+         const authData : AuthData = {_id:"",email:email,password:password,firstName:firstName,lastName:lastName,phoneNumber:phoneNumber,userName:userName,googleId:"",imagePath:"",Cart:this.Cart,isActive:false,orderHistory:this.orderHistory,address:this.address,role:role};
           this.http.post<{user:AuthData,message:string}>("http://localhost:4500/user/signup",authData).subscribe(res=>{
            this.saveDataInLocalStorage(email,firstName,lastName,phoneNumber,userName);
              //alert(res.message);
@@ -269,7 +269,7 @@ import { throwToolbarMixedModesError } from '@angular/material/toolbar';
       //  this.saveDataInLocalStorage()
 
            
-        let authData : AuthData = {_id:"",email:email,password:password,firstName:"",lastName:"",phoneNumber:"",userName:"",googleId:"",imagePath:"",address:this.address,orderHistory:this.orderHistory,isActive:false,Cart:this.Cart};
+        let authData : AuthData = {_id:"",email:email,password:password,firstName:"",lastName:"",phoneNumber:"",userName:"",googleId:"",imagePath:"",address:this.address,orderHistory:this.orderHistory,isActive:false,Cart:this.Cart,role:""};
         
 
 
@@ -464,7 +464,7 @@ import { throwToolbarMixedModesError } from '@angular/material/toolbar';
     }
     
     updateUser(_id:string,firstName:string, lastName:string, phoneNumber:string,
-        userName:string, password:string, email:string){
+        userName:string, password:string, email:string,role:string){
            
             // const userData = new FormData();
             // // userData.append("_id",null);
@@ -485,6 +485,7 @@ import { throwToolbarMixedModesError } from '@angular/material/toolbar';
                userName:userName,
                password:password,
                email:email,
+              role:role,
                googleId:googleId,
                imagePath:imagePath,
                Cart:null,
@@ -498,7 +499,7 @@ import { throwToolbarMixedModesError } from '@angular/material/toolbar';
             this.http.put('http://localhost:4500/user/'+_id,userData).subscribe(res=>{
              const updateUsers = [...this.users];
              const oldGpuInd = updateUsers.findIndex(p=>p._id===_id);
-             const user : AuthData = {email:email,firstName:firstName,_id:_id,lastName:lastName,phoneNumber:phoneNumber,userName:userName,password:password,googleId:"",imagePath:"",Cart:null,isActive:false,orderHistory:null,address:null};
+             const user : AuthData = {email:email,firstName:firstName,_id:_id,lastName:lastName,phoneNumber:phoneNumber,userName:userName,password:password,googleId:"",imagePath:"",Cart:null,isActive:false,orderHistory:null,address:null,role:role};
              updateUsers[oldGpuInd]=user;
              this.users = updateUsers;
              this.UsersUpdated.next([...this.users]);

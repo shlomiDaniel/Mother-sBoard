@@ -5,6 +5,7 @@ const UserCartSchema = require('./UserCart').schema;
 const Product = require('./Product');
 const Address = require('./Adress').schema;
 var uniqueValidator = require('mongoose-unique-validator');
+const { stringify } = require('querystring');
 const Schema = mongoose.Schema;
 const userSchema = new Schema({
     // email : {type:String, required:true,unique:true},
@@ -22,6 +23,8 @@ const userSchema = new Schema({
             
         }
     },
+    role: String,
+
     
     phoneNumber : {type:String},
     isActive:{type:Boolean,default:false},

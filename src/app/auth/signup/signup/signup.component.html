@@ -82,12 +82,22 @@
     
   
 
- 
+    
   
   </mat-form-field><br><br>
 
 
+  <!-- <mat-select placeholder="Pick a Role" formControlName="role"  >
+    
+    <mat-option  >user</mat-option>
+    <mat-option   >admin</mat-option>
+    <mat-option   >manager</mat-option>
+    <p>You selected:</p>
+  </mat-select> -->
 
+ 
+  
+  <!-- <p *ngIf="isAdmin" [(ngModel)]="{{selected}}" >You selected: {{selected}}</p> -->
 
   <button mat-raised-button
           color="primary"
@@ -96,5 +106,14 @@
         
 
 </form>
+<mat-form-field appearance="fill" *ngIf="isAdmin">
+  <mat-label>Select an option</mat-label>
+  <mat-select (valueChange)="changeValue($event)" [(value)]="selected">
+    <mat-option>None</mat-option>
+ <mat-option *ngFor="let role of roles" [value]="role.title">{{role.title}}</mat-option>
 
+  </mat-select>
+</mat-form-field>
 </mat-card> 
+
+
