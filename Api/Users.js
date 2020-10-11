@@ -43,7 +43,7 @@ router.get("/info/:email",(req,res,next)=>{
    
 
 
-     router.get("/:_id",(req,res,next)=>{
+     router.get("/:_id",checkAuth,(req,res,next)=>{
         User.findOne({_id:req.params._id}).then(user=>{
             res.status(200).json({
            user:user
@@ -184,15 +184,28 @@ router.get("/info/:email",(req,res,next)=>{
 
     });
 
-    router.get("/",(req,res,next)=>{
+    router.get("/",checkAuth,(req,res,next)=>{
         
-        User.find().then(data=>{
-            
+      //  let userName = req.params.userName;
+      //  console.log(userName);
+      //  User.findOne({userName:userName}).then(user=>{
+
+       
+          User.find().then(data=>{
+           
             res.status(200).json({
-            users:data
+              users:data
+              
+              });
+          
             
-            });
-        });
+        // });
+          
+        
+
+
+       })
+       
     
     });
 

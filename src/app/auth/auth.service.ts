@@ -118,7 +118,7 @@ import { throwToolbarMixedModesError } from '@angular/material/toolbar';
       firstName = data.firstName
       });
       
-       this.router.navigate(["/home"]);
+       this.router.navigate(["/"]);
 
     }
 
@@ -485,7 +485,7 @@ import { throwToolbarMixedModesError } from '@angular/material/toolbar';
                userName:userName,
                password:password,
                email:email,
-              role:role,
+               role:role,
                googleId:googleId,
                imagePath:imagePath,
                Cart:null,

@@ -132,12 +132,12 @@ const config = {
       // {path: 'cpus', component: CpuComponent},
 
       {path: 'items/:name', component: ItemsComponent},
-      {path: 'users', component: UsersComponent},
+      {path: 'users', component: UsersComponent,canActivate:[AuthGuard]},
       {path: 'search/:searchKey', component: SearchPageComponent},
       {path:'edit/:_id',component:ProductCreateComponent,canActivate:[AuthGuard]},
       {path:'user/edit/:_id',component:SignupComponent,canActivate:[AuthGuard]},
       {path:'create',component:ProductCreateComponent,canActivate:[AuthGuard]},
-      {path:'list',component:ProductListComponent},
+      {path:'list',component:ProductListComponent,canActivate:[AuthGuard]},
       {path:'search/:name',component:SearchPageComponent},
       {path:'login',component:LoginComponent},
        {path:'signup',component:SignupComponent},
@@ -148,9 +148,9 @@ const config = {
        {path:'profile/:_id',component:UserProfileComponent},
        {path: 'item/:_id', component: ItemFullPageComponent},
        {path: 'cart', component: CartComponent},
-       {path:'address',component:UserDetailsExpandComponent},
-       {path:'payment',component:UserPaymentComponent},    
-        {path:'confirmation',component:ConfirmationComponent},
+       {path:'address',component:UserDetailsExpandComponent,canActivate:[AuthGuard]},
+       {path:'payment',component:UserPaymentComponent,canActivate:[AuthGuard]},    
+        {path:'confirmation',component:ConfirmationComponent,canActivate:[AuthGuard]},
         {path:'userOrderHistory/:_id',component:UserOrderHistoryComponent}
 
 

@@ -38,7 +38,7 @@ export class UsersComponent implements OnInit, OnDestroy {
   user : AuthData;
   users: AuthData [] = [];
   private usersSub: Subscription;
-  
+  userName = "";
   mode = 'signup';
   // id;
     _id:string;
@@ -90,6 +90,10 @@ export class UsersComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
+   this.authService.getUserByEmail( localStorage.getItem("email")).subscribe(data=>{
+     this.userName = data.user.userName;
+     console.log(this.userName);
+   })
     // if (!localStorage.getItem('foo')) { 
     //   localStorage.setItem('foo', 'no reload') 
     //   location.reload() 
@@ -116,6 +120,7 @@ export class UsersComponent implements OnInit, OnDestroy {
     this.authService.getUsers();
     console.log(this.authService.getUsers());
     this.usersSub = this.authService.getUserUpdateListner().subscribe((users: AuthData[]) => {
+
       this.isLoading = false;
       this.users = users;
       this.users

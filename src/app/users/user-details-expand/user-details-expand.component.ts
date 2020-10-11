@@ -77,7 +77,7 @@ export class UserDetailsExpandComponent implements OnInit {
   locationChosen=false;
   cityName = "";
   temp = 0 ;
-
+  role: String;
 
   choseLocation(event){
     this.latitude = event.coords.lat;
@@ -188,7 +188,7 @@ export class UserDetailsExpandComponent implements OnInit {
     //   return;
     // }
     this.authService.updateUser(this._id,this.form.value.firstName, this.form.value.lastName, this.form.value.phoneNumber,
-    this.form.value.country, this.form.value.city, this.form.value.address);
+    this.form.value.country, this.form.value.city, this.form.value.address,this.role);
     this.form.reset();
   }
 
@@ -219,9 +219,10 @@ export class UserDetailsExpandComponent implements OnInit {
        let email = localStorage.getItem("email");
         this.authService.getUserByEmail(email).subscribe(data=>{
         this.user = data.user;
-       this.firstName = data.user.firstName,
-       this.lastName = data.user.lastName,
-       this.phoneNumber = data.user.phoneNumber
+       this.firstName = data.user.firstName;
+       this.lastName = data.user.lastName;
+       this.phoneNumber = data.user.phoneNumber;
+       this.role =data.user.role;
         this.totalPrice=0;
         this.price = 0;
        for(let i =0;i<data.user.Cart.products.length;i++){

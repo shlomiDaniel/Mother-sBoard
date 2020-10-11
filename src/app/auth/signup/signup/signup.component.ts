@@ -72,6 +72,7 @@ export class SignupComponent implements OnInit {
       this.authService.createUser1(this.form.value.email,this.form.value.password,this.form.value.firstName,this.form.value.lastName,this.form.value.phoneNumber,this.form.value.userName,this.rolePick);
       this.router.navigate(['/login']);
     }else{
+      
       this.authService.updateUser(this._id,this.form.value.firstName, this.form.value.lastName, this.form.value.phoneNumber,
         this.form.value.userName, this.form.value.password, this.form.value.email,this.rolePick);
     }
