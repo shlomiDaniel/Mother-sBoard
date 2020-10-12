@@ -60,6 +60,7 @@ import { AgmCoreModule } from '@agm/core';
 import { UserPaymentComponent } from './users/user-payment/user-payment.component';
 import { ConfirmationComponent } from './users/confirmation/confirmation.component';
 import { UserOrderHistoryComponent } from './users/user-order-history/user-order-history.component';
+import { AccessDeniedComponent } from './access-denied/access-denied.component';
 
 const config = {
   apiKey: '<your-key>',
@@ -97,7 +98,8 @@ const config = {
     UserDetailsExpandComponent,
     UserPaymentComponent,
     ConfirmationComponent,
-    UserOrderHistoryComponent
+    UserOrderHistoryComponent,
+    AccessDeniedComponent
   ],
   entryComponents:[DialogMessageComponent],
   imports: [
@@ -151,8 +153,8 @@ const config = {
        {path:'address',component:UserDetailsExpandComponent,canActivate:[AuthGuard]},
        {path:'payment',component:UserPaymentComponent,canActivate:[AuthGuard]},    
         {path:'confirmation',component:ConfirmationComponent,canActivate:[AuthGuard]},
-        {path:'userOrderHistory/:_id',component:UserOrderHistoryComponent}
-
+        {path:'userOrderHistory/:_id',component:UserOrderHistoryComponent},
+        {path:'accessDenied',component:AccessDeniedComponent}
 
        
        

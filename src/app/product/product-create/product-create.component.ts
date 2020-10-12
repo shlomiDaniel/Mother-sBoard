@@ -28,7 +28,7 @@ export class ProductCreateComponent implements OnInit {
   enteredTitle = '';
    mode = 'create';
    arrayCategory: any;
-  
+   email = "";
    imagePreview: string;
    _id : string;
    //selected = 'option2';
@@ -89,7 +89,8 @@ validateVerticalPosition
  }else{
  
    this.productsService.updateProduct(this._id,this.form.value.name, this.form.value.company, this.form.value.price,
-     this.form.value.description, this.form.value.imgPathCompanyLogo, this.form.value.numOfStars,this.form.value.image,this.form.value.manufacturer,this.form.value.category,this.form.value.key)
+     this.form.value.description, this.form.value.imgPathCompanyLogo, this.form.value.numOfStars,this.form.value.image,
+     this.form.value.manufacturer,this.form.value.category,this.form.value.key)
  }
 
 //  this.gpusService.addGpu(form.value.name, form.value.company, form.value.price,
@@ -114,7 +115,21 @@ this.form.reset();
   
 
   ngOnInit() {
-    this.getAllCategories();
+    
+    this.email  = localStorage.getItem("email");
+   
+    this.isLoading = true;
+   this.http.get<{message:string}>("http://localhost:4500/user/checkRole/" + this.email).subscribe(data=>{
+
+     console.log(data.message);
+    
+
+    if(data){
+      console.log(data.message);
+    }
+    if(data.message==="admin"){
+      
+      this.getAllCategories();
     //this.arrayCategory=this.getAllCategories();
     this.form = new FormGroup({
      // categoryName:new FormControl("",{validators:[Validators.required]}),
@@ -176,6 +191,15 @@ this.form.reset();
          }
 
        });
+
+    }else{
+      //this.router.navigate(["/accessDenied"]);
+      location.href = "/accessDenied";
+    }
+
+      
+    });
+   
   }
 
 }

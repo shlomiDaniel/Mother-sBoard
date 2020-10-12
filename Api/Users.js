@@ -865,7 +865,44 @@ router.post('/contact-us', (req,res)=>{
        });
        })
        
+       router.get("/checkRole/:email",(req,res,next)=>{
+      
+        
+
+          User.findOne({email:req.params.email}).then(user=>{
+
+            try{
+
          
+              if(user.role==="admin"){
+                console.log(user);
+                console.log(user.role);
+              res.json({message:user.role});
+              next();
+             }else{
+               
+            //  res.redirect('http://localhost:4200/login');
+
+             // location.href = "http://localhost:4200/accessDenied";
+             }
+            }
+              catch(error){
+                console.log(error);
+               
+            }
+           
+            res.json({message:"Auth failed here"});
+                 // alert(`Confirmation success welcome to website`)
+                
+             
+             });
+
+
+          })
+
+
+
+       
         
  
 

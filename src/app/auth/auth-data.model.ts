@@ -16,5 +16,5 @@ export interface AuthData{
     isActive:boolean,
     Cart : UserCartSchema,
     orderHistory: [] ,
-    role:String
+    role:string
 }

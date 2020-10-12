@@ -38,6 +38,7 @@ export class UserDetailsExpandComponent implements OnInit {
   lastName = "";
   phoneNumber = "";
   vat = 0;
+  role = "";
   // currentCountry = "";
   form :FormGroup;
   arrTemp = [];
@@ -77,7 +78,7 @@ export class UserDetailsExpandComponent implements OnInit {
   locationChosen=false;
   cityName = "";
   temp = 0 ;
-  role: String;
+  //role: String;
 
   choseLocation(event){
     this.latitude = event.coords.lat;

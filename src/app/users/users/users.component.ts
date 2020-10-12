@@ -8,6 +8,10 @@ import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { ParamMap } from '@angular/router';
 
 import { ProductListComponent } from 'src/app/product-list/product-list.component';
+//var jwt = require('jwt-simple');
+
+//import * as jwt from 'jwt-simple';
+// import { JwtModule } from 'jwt-decode';
 
 
 
@@ -22,7 +26,7 @@ import { AuthData } from 'src/app/auth/auth-data.model';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogMessageComponent } from 'src/app/auth/dialog-message/dialog-message.component';
 import { ThrowStmt } from '@angular/compiler';
-import { HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 
 
 
@@ -40,12 +44,14 @@ export class UsersComponent implements OnInit, OnDestroy {
   private usersSub: Subscription;
   userName = "";
   mode = 'signup';
+  email = "";
   // id;
     _id:string;
+    isAdmin = false;
  form : FormGroup;
  isLoading = false;
  private sub:any = null;
-  constructor( private authService : AuthService,public route :ActivatedRoute,public router: Router) {
+  constructor( private authService : AuthService,public route :ActivatedRoute,public router: Router,public http : HttpClient) {
     if (!authService.loggedIn()) {
       //  this.location.replace('/home');
      // expect(location.path()).toBe('/home');
@@ -90,43 +96,55 @@ export class UsersComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
-   this.authService.getUserByEmail( localStorage.getItem("email")).subscribe(data=>{
-     this.userName = data.user.userName;
-     console.log(this.userName);
-   })
-    // if (!localStorage.getItem('foo')) { 
-    //   localStorage.setItem('foo', 'no reload') 
-    //   location.reload() 
-    // } else {
-    //   localStorage.removeItem('foo') 
-    // }
 
-  
-
-  //   if(!this.authService.loggedIn()){
-  //     alert("You cannot access this page");
-  //     this.router.navigate(['/home']);
-  // }
-
-
-//   if (!this.authService.loggedIn()) {
-//     //this.location.replaceState('/'); // clears browser history so they can't navigate with back button
-//     this.router.navigate(['home']); // tells them they've been logged out (somehow)
-// }
-
-  
-    this.isLoading = true;
+    this.email  = localStorage.getItem("email");
    
-    this.authService.getUsers();
-    console.log(this.authService.getUsers());
-    this.usersSub = this.authService.getUserUpdateListner().subscribe((users: AuthData[]) => {
+    this.isLoading = true;
+   this.http.get<{message:string}>("http://localhost:4500/user/checkRole/" + this.email).subscribe(data=>{
 
-      this.isLoading = false;
-      this.users = users;
-      this.users
-      console.log(this.users);
+     console.log(data.message);
+    
+
+    if(data){
+      console.log(data.message);
+    }
+    if(data.message==="admin"){
+      
+      this.authService.getUsers();
+      //console.log(this.authService.getUsers());
+      this.usersSub = this.authService.getUserUpdateListner().subscribe((users: AuthData[]) => {
+  
+        this.isLoading = false;
+        this.users = users;
+        this.users
+        console.log(this.users);
+     // console.log(data);
+     })
+
+    }else{
+      //this.router.navigate(["/accessDenied"]);
+      location.href = "/accessDenied";
+    }
+
       
     });
+  
+    // this.isAdmin =true;
+    // if(this.isAdmin){
+    //   this.authService.getUsers();
+    //   //console.log(this.authService.getUsers());
+    //   this.usersSub = this.authService.getUserUpdateListner().subscribe((users: AuthData[]) => {
+  
+    //     this.isLoading = false;
+    //     this.users = users;
+    //     this.users
+    //     console.log(this.users);
+    //  // console.log(data);
+    //  })
+    // }
+
+    
+    
 
 
    
@@ -140,7 +158,7 @@ export class UsersComponent implements OnInit, OnDestroy {
 
 
 
-
   }
+ 
 
 }

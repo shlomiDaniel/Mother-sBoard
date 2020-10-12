@@ -98,7 +98,6 @@ sortSearchResult(property) {
     //   alert( this.enteredValue);
     // }
     this.enteredValue = this.enteredValue.toUpperCase();
-
     // this.products =   this.productService.getProductsAndReturn();
     
     // this.filteredArray = this.productService.getProductByName(this.enteredValue,this.products)
@@ -152,12 +151,18 @@ sortSearchResult(property) {
    // this.containsGpu(this.gpus);
     //this.name = this.filteredArray;
     this.sortSearchResult('_id');
+
     this.filteredSearch = this.filteredArrayProduct;
+    // this.filteredArrayProduct.push(this.checkString2(this.enteredValue));
+
     });
 
     
 
   }
+
+ 
+
 
   ngOnInit(): void {
     this.searchKey = "";
@@ -187,7 +192,8 @@ sortSearchResult(property) {
    this.productSub = this.productService.getPostUpdateListner().subscribe((products: Product[]) => {
      this.products = products;
      console.log(this.products);
-    
+    this.filteredArrayLength= this.products.length;
+     
    });
 
    
@@ -227,6 +233,15 @@ this.filteredNewArrayLength=this.filteredNewArray.length;
     if (this.filteredNewArray[i]!= undefined)
     this.filterResult(this.filteredNewArray[i]);
   }
+}
+
+//  checkString(str) {    
+//   return myStringArray.some(s => s.includes(str));
+// }
+ checkString2(str) {    
+  return this.products.some(function(s) {
+    return s.indexOf(str) > -1;
+  });
 }
   filterItemByCompany(company){
     

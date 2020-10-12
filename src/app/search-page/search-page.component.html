@@ -169,7 +169,7 @@
                 type="submit" (click)="clickMe(value)" >Search</button>
   </mat-card>
   
-      <div *ngIf="enteredValue">
+      <div *ngIf="filteredArrayLength>1">
         <h7>We find {{filteredArrayLength}} result </h7>
         
         <div class="accordion" id="accordionSort" *ngIf="filteredArrayLength>1">
