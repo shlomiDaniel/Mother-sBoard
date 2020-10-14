@@ -48,7 +48,10 @@ export class ProductListComponent implements OnInit, OnDestroy {
     this.email  = localStorage.getItem("email");
    
     this.isLoading = true;
-   this.http.get<{message:string}>("http://localhost:4500/user/checkRole/" + this.email).subscribe(data=>{
+   
+   
+   
+ this.http.get<{message:string}>("http://localhost:4500/user/checkRole/" + this.email).subscribe(data=>{
 
      console.log(data.message);
     
@@ -72,6 +75,9 @@ export class ProductListComponent implements OnInit, OnDestroy {
 
       
     });
+  
+  
+  
   }
   }
    

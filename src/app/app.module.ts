@@ -22,6 +22,7 @@ import { ProductCreateComponent } from './product/product-create/product-create.
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormGroup, FormControl } from '@angular/forms';
 import {HttpErrorInterceptor} from './auth/http-error-interceptor';
+import {MatTableModule} from '@angular/material/table';
 
 // // @ts-ignore
 // import {MatInputModule} from '@angular/material';
@@ -61,7 +62,9 @@ import { UserPaymentComponent } from './users/user-payment/user-payment.componen
 import { ConfirmationComponent } from './users/confirmation/confirmation.component';
 import { UserOrderHistoryComponent } from './users/user-order-history/user-order-history.component';
 import { AccessDeniedComponent } from './access-denied/access-denied.component';
-
+import { OrdersComponent } from './order/orders-users/orders/orders.component';
+// import { OrdersUsersComponent } from './order/orders-users/orders-users.component';
+//import {MatTableDataSource} from '@angular/material/table'
 const config = {
   apiKey: '<your-key>',
   authDomain: '<your-project-authdomain>',
@@ -99,12 +102,14 @@ const config = {
     UserPaymentComponent,
     ConfirmationComponent,
     UserOrderHistoryComponent,
-    AccessDeniedComponent
+    AccessDeniedComponent,
+    OrdersComponent,
   ],
   entryComponents:[DialogMessageComponent],
   imports: [
     BrowserModule,
     MatToolbarModule,
+    MatTableModule,
     ReactiveFormsModule,
     MatDialogModule,
     MatPaginatorModule,
@@ -112,6 +117,7 @@ const config = {
     MatCardModule,
     MatProgressSpinnerModule,
     MatButtonModule,
+    // MatTableDataSource,
     MatSelectModule,
     MatInputModule,
     MatInputModule,
@@ -154,7 +160,9 @@ const config = {
        {path:'payment',component:UserPaymentComponent,canActivate:[AuthGuard]},    
         {path:'confirmation',component:ConfirmationComponent,canActivate:[AuthGuard]},
         {path:'userOrderHistory/:_id',component:UserOrderHistoryComponent},
-        {path:'accessDenied',component:AccessDeniedComponent}
+        {path:'accessDenied',component:AccessDeniedComponent},
+        {path:'orders',component:OrdersComponent}
+
 
        
        

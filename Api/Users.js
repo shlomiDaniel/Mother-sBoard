@@ -237,18 +237,18 @@ router.get("/info/:email",(req,res,next)=>{
     
     });
 ///check this
-    router.get("/:_id",(req,res,next)=>{
-        User.findOne({_id:req.params._id}).then(user=>{
-            res.status(200).json({
-                firstName:user.firstName
-                ,lastName:user.lastName,
-                phoneNumber:user.phoneNumber,
-                userName:user.userName,
-                email:user.email
-            });
-        });
+    // router.get("/:_id",(req,res,next)=>{
+    //     User.findOne({_id:req.params._id}).then(user=>{
+    //         res.status(200).json({
+    //             firstName:user.firstName
+    //             ,lastName:user.lastName,
+    //             phoneNumber:user.phoneNumber,
+    //             userName:user.userName,
+    //             email:user.email
+    //         });
+    //     });
 
-    });
+    // });
 
     router.get("/logout",(req,res)=>{
       req.logOut();

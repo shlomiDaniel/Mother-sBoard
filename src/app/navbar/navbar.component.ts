@@ -76,8 +76,14 @@ export class NavbarComponent implements OnInit,OnDestroy {
       if(data.user.role==="admin"){
         this.isAdmin = true;
       }
-      this.city = data.user.address.city.name;
       this.country = data.user.address.state.name;
+      this.city = data.user.address.city.name;
+      console.log("this city is" + this.city);
+      if(this.city === undefined || this.city===""){
+        this.city="Jerusalem"
+        this.country = "Israel"
+      }
+     
       this.cuttentTime = "";
      // alert(this.city);
       axios.get("http://api.openweathermap.org/data/2.5/weather?q=" + this.city + "&appid=13e12fcb31df35db1cf242d892164175").then(data=>{
@@ -197,6 +203,11 @@ export class NavbarComponent implements OnInit,OnDestroy {
 
 
   getCurrentTime(lon:string,lat:string){
+    // if(lon === undefined){
+    //   lon = (31.7683).toString();
+    //   lat = (35.21).toString();
+
+    // }
     axios.get("https://api.ipgeolocation.io/timezone?apiKey=d27c2b334159456e9512be41ed06f3c4&lat="+lat+"&long="+lon).then(time=>{
       // let currentTime = time.data.time_24;
        let date = time.data.date;

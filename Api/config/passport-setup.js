@@ -60,6 +60,7 @@ passport.use(
            password:"",
            phoneNumber:"",
            imagePath:profile.photos[0].value,
+           role:"user"
            
 
            //.lastName:profile.name.given
@@ -119,6 +120,7 @@ passport.use(
                 facebookId: profile.id,
                 userName: profile.displayName,
                 imagePath:profile.photos[0].value,
+                role:"user",
                /// birthday:profile.birthday,
                 //friends:profile.user.friends[0],
                 //profileUrl:profile.profileUrl
