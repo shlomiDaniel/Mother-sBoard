@@ -27,35 +27,45 @@ export class ProductCreateComponent implements OnInit {
    isLoading = false;
   enteredTitle = '';
    mode = 'create';
+   select = "";
    arrayCategory: any;
    email = "";
    imagePreview: string;
    _id : string;
+   selected:string;
    //selected = 'option2';
    form:FormGroup;
   name :"";
    arrTemp =[];
-  selected:any;
+  // selected:any;
   filtered :any;
-
+  chosen:string;
+  categories : any;
   constructor(public  productsService: ProductsService,public route :ActivatedRoute, public http:HttpClient) {
-  //this.getAllCategories();
+  this.getAllCategories();
+  console.log(this.arrTemp);
    }
   // tslint:disable-next-line:typedef
  getAllCategories(){
 
-  axios.get<{CategoryName:any[]}>('http://localhost:4500/category').then(a=>{
-   (a.data.CategoryName.forEach(el=>{
-     this.arrTemp.push(el.name);
+  axios.get<{categoryName:any[]}>('http://localhost:4500/category').then(a=>{
+   (a.data.categoryName.forEach(el=>{
+     
+    this.arrTemp.push(el.name);
+    
+     
     
    }));
-   console.log( this.arrTemp);
+  
+   //console.log( this.arrTemp);
  })
  
  }
 
-  
-  
+ 
+ onSelect(){
+  this.chosen = this.selected;
+ }
 
 onOptionsSelected() {
  // console.log(this.selected); 
@@ -77,17 +87,23 @@ onOptionsSelected() {
    
 //    return;
 //  }
-if (this.form.invalid){
-  alert("error");
-validateVerticalPosition
-  return;
-}
+
+// if (this.form.invalid){
+//   alert("error");
+// validateVerticalPosition
+//   return;
+// }
+  alert(this.form.value.category);
+  
+  
  this.isLoading = true;
  if(this.mode==='create'){
+   this.onSelect();
+   //alert(this.form.value.category);
    this.productsService.addProduct(this.form.value.name,this.form.value.company, this.form.value.price,
-     this.form.value.description, this.form.value.imgPathCompanyLogo, this.form.value.numOfStars,this.form.value.image,this.form.value.manufacturer ,this.form.value.category,this.form.value.key);
+     this.form.value.description, this.form.value.imgPathCompanyLogo, this.form.value.numOfStars,this.form.value.image,this.form.value.manufacturer ,this.chosen,this.form.value.key);
  }else{
- 
+ // alert(this.form.value.category);
    this.productsService.updateProduct(this._id,this.form.value.name, this.form.value.company, this.form.value.price,
      this.form.value.description, this.form.value.imgPathCompanyLogo, this.form.value.numOfStars,this.form.value.image,
      this.form.value.manufacturer,this.form.value.category,this.form.value.key)
@@ -117,8 +133,10 @@ this.form.reset();
   ngOnInit() {
     
     this.email  = localStorage.getItem("email");
-   
-    this.isLoading = true;
+   // alert(this.email);
+  // this.getAllCategories();
+  // console.log(this.getAllCategories());
+   // this.isLoading = true;
    this.http.get<{message:string}>("http://localhost:4500/user/checkRole/" + this.email).subscribe(data=>{
 
      console.log(data.message);
@@ -128,9 +146,11 @@ this.form.reset();
       console.log(data.message);
     }
     if(data.message==="admin"){
-      
-      this.getAllCategories();
-    //this.arrayCategory=this.getAllCategories();
+     // alert(data.message);
+     console.log(this.arrTemp);
+     // console.log(this.getAllCategories());
+   // this.arrayCategory=this.getAllCategories();
+    //console.log(this.arrayCategory);
     this.form = new FormGroup({
      // categoryName:new FormControl("",{validators:[Validators.required]}),
      name:new FormControl(null,{validators:[Validators.required]}),
@@ -166,7 +186,7 @@ this.form.reset();
           console.log(this.product);
           
           console.log("#$$$$$$$$$$$$$$$$$$$$$$$E");
-
+          // console.log(this.product.category)
            this.form.setValue({
 
             

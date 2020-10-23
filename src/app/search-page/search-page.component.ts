@@ -38,6 +38,8 @@ export class SearchPageComponent  implements OnInit, OnDestroy {
     filteredSearch: Product[];
     //filteredSearch: [];
     des = "";
+    companyFiltered = [];
+    unique = [];
     _id="";
     isShow = false;
     imagePath = "";
@@ -130,21 +132,48 @@ sortSearchResult(property) {
    }
   }
 
+   onlyUnique(value, index, self) {
+    return self.indexOf(value) === index;
+  }
+  
+ 
+   
+
   showItems(searchKey:string){
     
     searchKey = searchKey.toUpperCase();
 
     this.productSub = this.productService.getPostUpdateListner().subscribe((products: Product[]) => {
       this.products = products;
+      console.log(products);
+      console.log("#########################");
+
+      console.log(this.products);
       console.log(this.products);
      
 
-
+      
       this.filteredArray = 
     this.productService.getProductByCompany(searchKey,this.products);
     console.log(this.filteredArray);
-    // console.log("here");
- //   console.log(this.filteredArray);
+
+    //  this.productService.arrayDistinct( this.filteredArray).subscribe(data=>{
+    //   console.log(data);
+    //   this.companyFiltered = data;
+    //   console.log( this.companyFiltered);
+    //   this.unique =data.filter(this.onlyUnique);
+    //   console.log( this.unique);
+
+    // });
+    console.log(  this.filteredArray);
+    
+    this.filteredArray.forEach(product=>{
+      this.companyFiltered.push(product.company);
+    })
+    this.unique =this.companyFiltered.filter(this.onlyUnique);
+    console.log(this.unique);
+    console.log("here");
+   console.log(this.companyFiltered);
     this.filteredArrayProduct = this.filteredArray;
     console.log(this.filteredArray);
     this.filteredArrayLength=this.filteredArrayProduct.length;
@@ -192,7 +221,7 @@ sortSearchResult(property) {
    this.productSub = this.productService.getPostUpdateListner().subscribe((products: Product[]) => {
      this.products = products;
      console.log(this.products);
-    this.filteredArrayLength= this.products.length;
+    // this.filteredArrayLength= this.products.length;
      
    });
 

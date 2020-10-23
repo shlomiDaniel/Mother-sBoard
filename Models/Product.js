@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+let Comment = require('./Comment').schema;
 const Schema = mongoose.Schema;
 const Product = new Schema({
 
@@ -14,7 +14,7 @@ const Product = new Schema({
   key:String,
   category:String,
   manufacturer:String,
-
+  comments :[Comment],
 amount: {
   type: Number,
   default: 0

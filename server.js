@@ -54,6 +54,10 @@ const category = require('./Api/Category');
 app.use("/category",category);
 
 
+const comment = require('./Api/Comments');
+
+app.use("/comment",comment);
+
 const order = require('./Api/Orders');
 
 app.use("/orders",order);

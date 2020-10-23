@@ -106,7 +106,7 @@ passport.use(
         done(null,currentUser)
       //have the user
       console.log("user exist");
-
+      console.log(currentUser);
       console.log(currentUser);
       }else{
 
@@ -121,7 +121,9 @@ passport.use(
                 userName: profile.displayName,
                 imagePath:profile.photos[0].value,
                 role:"user",
+
                /// birthday:profile.birthday,
+
                 //friends:profile.user.friends[0],
                 //profileUrl:profile.profileUrl
          // facebook_id : profile.id,

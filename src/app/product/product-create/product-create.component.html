@@ -38,12 +38,13 @@
 
   <!-- <mat-label>Pick a Category</mat-label> -->
 
-  
-  <mat-select placeholder="Pick a Category" formControlName="category"  >
+  <mat-form-field><br>
+  <mat-select  [(value)]="selected" (selectionChange)="onSelect()" matNativeControl  placeholder="Pick a Category" formControlName="category"  >
     
-    <mat-option *ngFor="let category of arrTemp" value={{category}} >{{category}}</mat-option>
+    <mat-option  *ngFor="let category of arrTemp" value={{category}}  >{{category}}</mat-option>
     <p>You selected:</p>
   </mat-select>
+</mat-form-field><br>
 
   <mat-form-field><br>
     <input placeholder="Enter Key:" matInput type="text"  formControlName="key"  />
@@ -88,7 +89,7 @@
     <mat-error style="color: blueviolet" *ngIf="form.get('price').invalid" >Please Enter a Product price </mat-error>
   </mat-form-field  ><br>
     <mat-form-field><br>
-    <input placeholder="Enter imgPath:"  matInput type="text"      formControlName="imgPath" />
+    <input placeholder="Enter imgPath:" style="visibility: false;"  matInput type="text"      formControlName="imgPath" />
     
     <div color="primary" style="float: right;">
       <button (click)="filePicker.click()" class="btn btn-success" mat-stroked-button type="button">Pick Image</button>

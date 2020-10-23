@@ -1,7 +1,7 @@
 // @ts-ignore
 import {Product} from '../product/product.model';
 import {Subject} from 'rxjs';
-import {Injectable} from '@angular/core';
+import {Injectable, ɵConsole} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import { ThrowStmt } from '@angular/compiler';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
@@ -14,20 +14,21 @@ import Axios from 'axios';
 export  class ProductsService {
     constructor(public http: HttpClient,private router:Router){}
   //private gpus;
-  private products: Product  = [];
-  private productsAmd: Product  = [];
-  private   productsNvidia: Product  = [];
+  private products: Product  = [140];
+  private productsAmd: Product  = [140];
+  private   productsNvidia: Product  = [140];
   
-  private productsUpdated = new Subject<Product[]>();
+  private productsUpdated = new Subject<Product[140]>();
   // tslint:disable-next-line:typedef
    
   getProductByName(key,products){
     
-    let array;
+    let array = new Array [150];
     array =  products.filter(data=>data.key===key
     
     //  return data.name===name|| data.company===name;
     );
+    console.log(array);
     return array;
   }
   // getAllCompanies(name,gpus){
@@ -72,11 +73,29 @@ export  class ProductsService {
    }
 
   getProductByCompany(company,products){
-    let array;
-    array =  products.filter(data=>{
-      return data.company===company;
-    });
-    return array;
+    // let array= [130];
+     let products2 = [];
+    // array =  products.filter(data=>{
+    // //  alert(products.length)
+    // if(data.company===company){
+    //   products2.push(data);
+    // }
+   
+     
+    // });
+    //alert(array.length);
+    for(let i =0;i<products.length;i++){
+      ///'a nice string'.includes('nice') //true
+
+      if(products[i].company.toUpperCase()===company.toUpperCase()||
+      products[i].name.toUpperCase()===company.toUpperCase()||
+      products[i].name.toUpperCase().includes(company.toUpperCase())||
+      products[i].description.toUpperCase().includes(company.toUpperCase())
+      ){
+        products2.push(products[i]);
+      }
+    }
+    return products2;
   }
 
   getAllCategory(){
@@ -91,6 +110,11 @@ export  class ProductsService {
   getAllProductNames(){
     return  this.http.get<{productNames : string[]}>("http://localhost:4500/product/distinct/productName");
   }
+  arrayDistinct(arr){
+   arr= this.http.get<{companies : any}>("http://localhost:4500/product/distinct/productCompany");
+   return arr;
+  }
+  
 
   getAndReturnProducts(){
     //return [...this.gpus];
@@ -168,7 +192,7 @@ export  class ProductsService {
    }))
    .subscribe((products)=>{
     this.products = products;
-    //  console.log(gpus);
+      console.log(products);
       this.productsUpdated.next([...this.products]);
    });
    return this.products;
@@ -209,6 +233,8 @@ export  class ProductsService {
       this.products.push(product);
       this.productsUpdated.next([...this.products]);
        this.router.navigate(["/products"]);
+       console.log(product);
+       alert(product.category);
     });
    
   }
@@ -284,6 +310,21 @@ export  class ProductsService {
 
 
   }
+
+  getCommentsByProductId(productId){
+   
+   return this.http.get<{comments:any}>("http://localhost:4500/product/getCommentsByProductId/"+productId);
+
+
+  }
+
+  addCommentToProductById(userId:string,productId:string,message:string ){
+          let item = {message:message};
+    return this.http.post<{product:any} >("http://localhost:4500/product/addCommentToProductComments/"+userId+"/"+productId+"/"+message,item.message);
+ 
+ 
+   }
+  
 
 }
 

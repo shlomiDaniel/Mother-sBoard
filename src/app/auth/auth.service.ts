@@ -40,6 +40,8 @@ import { throwToolbarMixedModesError } from '@angular/material/toolbar';
    
   //gpus: Gpu [] = [];
   private UsersUpdated = new Subject<AuthData[]>();
+  private user = new Subject<AuthData>();
+
 
     constructor(public http : HttpClient,private router:Router,public dialog:MatDialog,public activeRoute : ActivatedRoute){
 
@@ -521,7 +523,10 @@ import { throwToolbarMixedModesError } from '@angular/material/toolbar';
     getUserUpdateListner(){
         return this.UsersUpdated.asObservable();
       }
-
+      getUserListner(){
+        return this.user.asObservable();
+      }
+      
       checkError(error:string){
         if(error!==""){
             alert(error);
@@ -718,4 +723,24 @@ import { throwToolbarMixedModesError } from '@angular/material/toolbar';
 
   
    }
+
+   getEmailByToken(){
+    let token =this.getAuthDataFromLocalStorage();
+    let email =  jwt_decode(token).email; 
+    // let userId =  jwt_decode(token).userId; 
+       return email;
+   }
+   getIdByToken(){
+    let token =this.getAuthDataFromLocalStorage();
+    let email =  jwt_decode(token).email; 
+    // let userId =  jwt_decode(token).userId; 
+       return email;
+   }
+   getUser(){
+     let email = this.getEmailByToken();
+     return this.http.get<{user:AuthData}>("http://localhost:4500/user/info/" + email);
+    
+
+   }
+   
 }

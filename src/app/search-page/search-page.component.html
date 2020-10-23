@@ -241,19 +241,19 @@
   
     <div class="card" >
       <div class="card-body"> 
-        <div *ngFor="let productName of filteredArray">
+        <div *ngFor="let productName of unique">
           <p style="display: inline;">
             <button   id="collapse4" class="collapse" type="button"  
                   data-toggle="collapse"  aria-expanded="false"
                     aria-labelledby="heading1" data-parent="#accordionfilter3">
-                              {{productName.company}}
+                              {{productName}}
                   <input type="checkbox"  value={{productName._id}} (click)="filterItemByCompany(productName.company)"
                           aria-label="Checkbox for following text input"> 
             </button>
             <button   id="collapse3" class="collapse" type="button" 
                     data-toggle="collapse"  aria-expanded="false"
                     aria-labelledby="heading1" data-parent="#accordionfilter3">
-                              {{productName.name}}
+                              {{productName}}
                 <input type="checkbox"  value={{productName._id}} (click)="filterItemByName(productName.name)"
                   aria-label="Checkbox for following text input"> 
                         

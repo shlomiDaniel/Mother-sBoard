@@ -18,9 +18,12 @@ export class NavbarComponent implements OnInit,OnDestroy {
   firstName="";
   changeText4 :boolean;
   isAdmin = false;
+  changeText7 :boolean;
+  valueForSearch  = "";
   userName="";
   currentTime : Date;
  // finalTime : Date;
+ getAccessories : boolean;
   changeText2 : boolean;
   changeText: boolean;
   changeText3:boolean;
@@ -33,6 +36,7 @@ export class NavbarComponent implements OnInit,OnDestroy {
    icon = "";
    city = "";
    country = "";
+  
    temp = "";
    cuttentTime = "";
    currentTemp ;
@@ -272,6 +276,12 @@ export class NavbarComponent implements OnInit,OnDestroy {
     }
     
     //alert(this.values);
+  }
+
+  GoTo(valueForSearch:string){
+    this.valueForSearch = valueForSearch;
+    alert(valueForSearch);
+    location.href = "/search/"+valueForSearch;
   }
  
 }

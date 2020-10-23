@@ -1,3 +1,5 @@
+import { Comment } from './../comments/comment-data.model';
+
 export  interface ProductModel {
   name: string;
   _id: string;
@@ -11,4 +13,5 @@ export  interface ProductModel {
   manufacturer:string;
   category:string;
   amount:number;
+  comments:[Comment]
 }

@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { AuthData } from './auth/auth-data.model';
+// import { setupMaster } from 'cluster';
+import { AuthService } from './auth/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -6,9 +9,15 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  storedGpus = [];
+  constructor(){
+   
+    //this.authService.setUser();
+  
+  }
+   
+  //storedGpus = [];
   // tslint:disable-next-line:typedef
-   onGpuAdded(gpu){
-     this.storedGpus.push(gpu);
-   }
+  //  onGpuAdded(gpu){
+  //    this.storedGpus.push(gpu);
+  //  }
 }

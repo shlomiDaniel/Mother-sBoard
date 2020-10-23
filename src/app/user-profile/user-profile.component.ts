@@ -8,6 +8,8 @@ import {nodemailer,transporter} from 'nodemailer';
 import { ActivatedRoute, Params } from '@angular/router';
 
 import { auth } from 'firebase';
+import { AppComponent } from '../app.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-user-profile',
@@ -27,8 +29,7 @@ export class UserProfileComponent implements OnInit {
   user : AuthData;
   _idUser= "";
   constructor(public router : Router,public http:HttpClient, public authService:AuthService,public activeRoute:ActivatedRoute) {
-   
-    
+
     
    }
 
@@ -36,16 +37,7 @@ export class UserProfileComponent implements OnInit {
    checkConnections(){
     return this.authService.loggedIn();
   }
-  //  updateUser(_id:string){
-  //   this.authService.getUserById(_id);
-  // }
-   
-  //  logOut(){
-  //    //alert("asdasd");
-  //    this.http.get<{user:AuthData}>('http://localhost:4500/user/info/info/info/logout').subscribe(data=>{
-       
-  //    });
-  //  }
+ 
  
   
   
@@ -119,46 +111,19 @@ export class UserProfileComponent implements OnInit {
       })
       }
     
-       
-      
     
-
-  // });
      }
 
     
-  //   console.log(this.user.firstName);
-     //  console.log(this.firstName);
+
+
+    let email =this.authService.getEmailByToken();
+    console.log("my email is" + email);
+    console.log("#################");
     
-    //  const usedrId = this.authService.getUserId();
-    //  const user = this.authService.getUserById(usedrId);
-     
-
-    //  user.subscribe(data=>{
-    //  this.firstName = data.user.firstName;
-    //  this.lastName = data.user.lastName;
-    //  this.phoneNumber = data.user.phoneNumber;
-    //  this.email = data.user.email;
-    //  this.userName = data.user.userName;
-    //  });
-
-
-    
-      // console.log(this._idUser);
-      // console.log(this._idUser);
-     
-      
-    //  const mailOptions = {
-    //   from: "shlomi.daniel@gmail.com",
-    //   to: this.email,
-    //   subject: "Welcome To aur store",
-    //   html: "<h1>Welcome Enjoy</h1>"
-    // };
-    
-    // transporter.sendMail(mailOptions, (error,data)=>{
-
-    // });
-   
+  
+   console.log("#################");
+  
   }
   orderHistory(){
     let _id = localStorage.getItem("_id");

@@ -5,6 +5,8 @@ const ObjectID = mongo.ObjectID;
 const router = express.Router();
 const Product = require('../Models/Product');
 const multer = require('multer');
+const User = require('../Models/User');
+const Comment = require('../Models/Comment');
 
 const checkAuth = require('../middleware/check-auth');
 const MINE_TYPE_MAP ={
@@ -38,11 +40,13 @@ router.get("/getProductByGroup",(req,res)=>{
       cpus:data.filter(data=>data.category==="cpu"),
       powerSupplys:data.filter(data=>data.category==="powerSupply"),
       cases:data.filter(data=>data.category==="cases"),
-      memoryRams:data.filter(data=>data.category==="memoryRam")
-
-
-
-      
+      memoryRams:data.filter(data=>data.category==="memoryRam"),
+      motherBoard:data.filter(data=>data.category==="motherBoard"),
+      powerSupply:data.filter(data=>data.category==="powerSupply"),
+      laptops:data.filter(data=>data.category==="laptops"),
+      consoles:data.filter(data=>data.category==="consoles"),
+      coolingSystem:data.filter(data=>data.category==="coolingSystem"),
+      accessories:data.filter(data=>data.category==="accessories")
       
     });
   });
@@ -168,6 +172,7 @@ router.post("/",checkAuth,multer({storage:storage}).single("image"),(req,res)=>{
     numOfStars:req.body.numOfStars,
     key:req.body.key,
     manufacturer:req.body.manufacturer,
+    
     category:req.body.category,
     amount:0
 
@@ -237,6 +242,44 @@ router.get("/distinct/productCategories",(req,res)=>{
   
 
 })
+
+router.post("/addCommentToProductComments/:userId/:productId/:commentMessage",(req,res)=>{
+
+  Product.findOne({_id:req.params.productId}).then(product=>{
+    User.findOne({_id:req.params.userId}).then(user=>{
+      let comment = new Comment({
+        userId: req.params.userId,
+        like: 0,
+        dislike: 0,
+        commentMessage: req.params.commentMessage,
+        numOfStars: req.body.numOfStars,
+        date: new Date(),
+        productName :product.name,
+        productId:product._id,
+        userImg:user.imagePath,
+        userName:user.userName,
+      })
+      product.comments.push(comment);
+      product.save();
+      res.json({product:product})
+    })
+  })
+    
+   
+ 
+  
+
+})
+
+router.get("/getCommentsByProductId/:productId",(req,res)=>
+{
+     Product.findOne({_id:req.params.productId}).then(product=>{
+       res.json({comments:product.comments})
+     })
+
+
+})
+
 
 
 

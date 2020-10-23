@@ -30,8 +30,8 @@ export class OrdersComponent implements OnInit {
       // })
            
            console.log(element.products)
-        let order = { orderId: element.userId,
-          userName:  "userName",
+        let order = { orderId:element._id,
+          userName:  element.userId,
           address: element.address.line1,
           status: element.status,
           date: element.date,

@@ -9,6 +9,7 @@ import {MatSelectModule} from '@angular/material/select';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
+import {CategoriesService} from './categories/categories.service'
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import {HttpClientModule,HTTP_INTERCEPTORS} from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
@@ -37,6 +38,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
 
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDialogModule} from '@angular/material/dialog';
 import {ProductsService} from './product-list/product.service';
+// import {CategoriesService} from './categories/categories.service.spec';
 import {AuthService} from '../app/auth/auth.service';
 import {AuthGuard} from '../app/auth/auth.guard';
 import { SelectedListComponent } from './selected-list/selected-list.component';
@@ -63,6 +65,8 @@ import { ConfirmationComponent } from './users/confirmation/confirmation.compone
 import { UserOrderHistoryComponent } from './users/user-order-history/user-order-history.component';
 import { AccessDeniedComponent } from './access-denied/access-denied.component';
 import { OrdersComponent } from './order/orders-users/orders/orders.component';
+import { CommentsComponent } from './comments/comments/comments.component';
+import { CategoriesComponent } from './categories/categories/categories.component';
 // import { OrdersUsersComponent } from './order/orders-users/orders-users.component';
 //import {MatTableDataSource} from '@angular/material/table'
 const config = {
@@ -104,6 +108,8 @@ const config = {
     UserOrderHistoryComponent,
     AccessDeniedComponent,
     OrdersComponent,
+    CommentsComponent,
+    CategoriesComponent,
   ],
   entryComponents:[DialogMessageComponent],
   imports: [
@@ -161,7 +167,10 @@ const config = {
         {path:'confirmation',component:ConfirmationComponent,canActivate:[AuthGuard]},
         {path:'userOrderHistory/:_id',component:UserOrderHistoryComponent},
         {path:'accessDenied',component:AccessDeniedComponent},
-        {path:'orders',component:OrdersComponent}
+        {path:'orders',component:OrdersComponent},
+        {path:'comments',component:CommentsComponent},
+        {path:'categories',component:CategoriesComponent}
+
 
 
        
@@ -172,7 +181,7 @@ const config = {
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
   ],
-  providers: [ProductsService,AuthService,{provide:HTTP_INTERCEPTORS,useClass:AuthInterceptor,multi:true},AuthGuard, {
+  providers: [ProductsService,CategoriesService,AuthService,{provide:HTTP_INTERCEPTORS,useClass:AuthInterceptor,multi:true},AuthGuard, {
     provide: HTTP_INTERCEPTORS,
     useClass: HttpErrorInterceptor,
     multi: true
